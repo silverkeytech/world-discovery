@@ -7,28 +7,36 @@ module default {
         };
         required password: str;
         required join_date: datetime;
-        multi uploaded_sites: Site;
+        multi uploaded_places: Place;
     }
 
-    type Site {
+    type Place {
         required name: str {
             constraint exclusive;
         };
         required category: str;
-        image: Image;
-        required about: str;
+        required created_by: str;
+        required last_updated: datetime;
+        required description: str;
+        place_image: bytes;
         facebook_link: str;
         website_link: str;
+        google_map: str;
         required address: str;
         required email: str;
         required phone_number: str;
         multi sections: Section;
-        required labels: array<str>;
+        multi labels: Label;
     }
 
-    type Image {
-        required property filename -> str;
-        required property url -> str;
+    type Label {
+        required name: str;
+        required category: LabelCategory;
+    }
+
+    type LabelCategory {
+        required property name: str;
+        required property color: str;
     }
 
     type Section {
