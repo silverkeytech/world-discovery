@@ -1,0 +1,56 @@
+﻿@page "/"
+
+@using WorldDiscovery.Shared
+
+<PageTitle>Index</PageTitle>
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <div>
+            <img src="https://drive.google.com/uc?export=view&id=112ekDarKNkVxPk-iqvFuAxg1ykHgOzJq" alt="World Discovery Logo" class="logo" />
+            <a class="navbar-brand" href="/">WorldDiscovery</a>
+        </div>
+        <div>
+            <button class="btn btn-danger">Login</button>
+        </div>
+    </div>
+</nav>
+
+
+<div class="search-section">
+
+</div>
+
+<div class="results-section">
+    @foreach (var item in Places)
+    {
+        <div class="card">
+            <div class="card-title">
+                <div>
+                    <img src="https://drive.google.com/uc?export=view&id=1_kboy-ruukjdmL1zeywkGMrykW_3wHrh" alt="School Logo" class="logo" />
+                </div>
+                <h5 class="card-title">@item.Title</h5>
+            </div>
+
+            <div class="card-body">
+                <p class="card-text">@item.Description</p>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    List<Place> Places = new List<Place>()
+    {
+        new Place()
+        {
+            Title= "Collège St. Joseph De L’Apparition",
+            Description = "The school is teaching “the advanced level” for the English and French language in all the educational stages (from kindergarten to high school) using the modern technology."
+        },
+        new Place()
+        {
+            Title= $"Italian Hospital {"Umberto I"}",
+            Description = "The Italian hospital seeks to provide the ultimate patient care according to the international standard guideline. More than 700 employees work in the hospital for the aim of serving over 50,000 patient’s per year."
+        }
+    };
+}

@@ -1,0 +1,109 @@
+﻿.navbar {
+    background-color: white;
+}
+
+.navbar-brand {
+    color: black;
+    font-size: 1.8rem;
+    font-family: cursive;
+}
+
+.container-fluid {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.btn-danger {
+    background-color: #ed3237;
+    border-color: #d42c31;
+
+    border-radius: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+    .btn-danger:hover {
+        background-color: #d42c31;
+    }
+
+.card {
+    background-color: #f0f2f5;
+    width: 30vw;
+    height: 25vh;
+
+    margin-left: 5vw;
+    margin-top: 5vh;
+}
+
+
+.main-page {
+    height: 90vh;
+    width: 90vw;
+}
+
+.logo {
+    height: 50px;
+    margin-right: 15px;
+    margin-top: -12px;
+}
+
+.search-section {
+    background-color: white;
+    margin: auto;
+    margin-top: 50px;
+    height: 15vh;
+    width: 75vw;
+    border-radius: 20px;
+}
+
+.results-section {
+    background-color: white;
+    margin: auto;
+    margin-top: 50px;
+    height: 55vh;
+    width: 75vw;
+    border-radius: 20px;
+    display: flex;
+}
+
+.card-title {
+    display: flex;
+}
+
+@media (max-width: 640.98px) {
+    .navbar-brand {
+        font-size: 1.3rem;
+    }
+
+    .logo {
+        height: 40px;
+        margin-right: 0px;
+        margin-top: -3px;
+    }
+
+    .btn-danger {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+@media (max-width: 280px) {
+    .container-fluid {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .navbar-brand {
+        font-size: 1.1rem;
+    }
+
+    .logo {
+        height: 35px;
+    }
+
+    .btn-danger {
+        padding: 3px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
