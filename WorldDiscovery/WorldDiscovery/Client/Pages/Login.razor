@@ -1,0 +1,31 @@
+﻿@page "/login"
+@inject NavigationManager NavigationManager
+
+<PageTitle>Login</PageTitle>
+
+<div class="login-container">
+    <div class="login-background">
+        <div class="login-header">
+            <img src="https://drive.google.com/uc?export=view&id=112ekDarKNkVxPk-iqvFuAxg1ykHgOzJq" alt="World Discovery Logo" class="logo" />
+            <h3>Sign in to WorldDiscovery</h3>
+        </div>
+        <form class="login-form">
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1">
+            </div>
+            <button type="submit" class="btn btn-danger login-submit">Login</button>
+            <div class="no-account">
+                <p>Don't have an account? <span class="sign-up" @onclick='() => NavigationManager.NavigateTo("/signup")'>Sign Up</span></p>
+            </div>
+        </form>
+    </div>
+</div>
+
+@code {
+
+}

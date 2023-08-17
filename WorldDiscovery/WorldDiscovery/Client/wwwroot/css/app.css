@@ -18,6 +18,17 @@ a, .btn-link {
     border-color: #1861ac;
 }
 
+.btn-danger {
+    background-color: #ed3237;
+    border-color: #d42c31;
+    border-radius: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+    .btn-danger:hover {
+        background-color: #d42c31;
+    }
+
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }

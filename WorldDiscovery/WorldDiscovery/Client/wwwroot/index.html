@@ -27,6 +27,12 @@
         <a class="dismiss">🗙</a>
     </div>
     <script src="_framework/blazor.webassembly.js"></script>
+    <script>
+        window.toggleDropdown = function () {
+            var dropdown = document.querySelector('.dropdown');
+            dropdown.classList.toggle('show');
+        };
+    </script>
 </body>
 
 </html>

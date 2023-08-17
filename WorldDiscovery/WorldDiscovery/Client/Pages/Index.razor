@@ -1,43 +1,57 @@
 ﻿@page "/"
-
 @using WorldDiscovery.Shared
+@inject NavigationManager NavigationManager
 
 <PageTitle>Index</PageTitle>
+
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
         <div>
             <img src="https://drive.google.com/uc?export=view&id=112ekDarKNkVxPk-iqvFuAxg1ykHgOzJq" alt="World Discovery Logo" class="logo" />
-            <a class="navbar-brand" href="/">WorldDiscovery</a>
+            <span class="navbar-brand" @onclick='() => NavigationManager.NavigateTo("/")'>WorldDiscovery</span>
         </div>
         <div>
-            <button class="btn btn-danger">Login</button>
+            <button class="btn btn-danger" @onclick='() => NavigationManager.NavigateTo("/login")'>Login</button>
         </div>
     </div>
 </nav>
 
 
 <div class="search-section">
-
+    <div class="input-group mb-3 search-field">
+        <input type="text" class="form-control" placeholder="Search..." aria-label="Recipient's username" aria-describedby="button-addon2">
+        <button class="btn btn-outline-secondary" type="button" id="button-addon2">S</button>
+    </div>
 </div>
 
-<div class="results-section">
-    @foreach (var item in Places)
-    {
-        <div class="card">
-            <div class="card-title">
-                <div>
-                    <img src="https://drive.google.com/uc?export=view&id=1_kboy-ruukjdmL1zeywkGMrykW_3wHrh" alt="School Logo" class="logo" />
+
+<div class="results-background">
+    <h2 class="latest-updates">Our latest updates</h2>
+    <div class="results-section">
+        @foreach (var item in Places)
+        {
+            <div class="card">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-3">
+                            <img src=@item.ProfileImage.Url alt=@item.ProfileImage.Description class="profile-image" />
+                        </div>
+                        <div class="col">
+                            <h4 class="card-title">@item.Title</h4>
+                        </div>
+                    </div>
+                    <div class="row description-row">
+                        <div class="col">
+                            <p class="card-text">@item.Description</p>
+                        </div>
+                    </div>
                 </div>
-                <h5 class="card-title">@item.Title</h5>
             </div>
-
-            <div class="card-body">
-                <p class="card-text">@item.Description</p>
-            </div>
-        </div>
-    }
+        }
+    </div>
 </div>
+
 
 @code {
     List<Place> Places = new List<Place>()
@@ -45,12 +59,62 @@
         new Place()
         {
             Title= "Collège St. Joseph De L’Apparition",
-            Description = "The school is teaching “the advanced level” for the English and French language in all the educational stages (from kindergarten to high school) using the modern technology."
+            Description = "The school is teaching “the advanced level” for the English and French language in all the educational stages (from kindergarten to high school) using the modern technology.",
+            ProfileImage = new Image() 
+            { 
+                Url = "https://drive.google.com/uc?export=view&id=1_kboy-ruukjdmL1zeywkGMrykW_3wHrh",
+                Description = "St. Joseph profile picture"
+            }
         },
         new Place()
         {
             Title= $"Italian Hospital {"Umberto I"}",
-            Description = "The Italian hospital seeks to provide the ultimate patient care according to the international standard guideline. More than 700 employees work in the hospital for the aim of serving over 50,000 patient’s per year."
+            Description = "The Italian hospital seeks to provide the ultimate patient care according to the international standard guideline. More than 700 employees work in the hospital for the aim of serving over 50,000 patient’s per year.",
+            ProfileImage = new Image()
+            {
+                Url = "https://drive.google.com/uc?export=view&id=1NVUfSwp4BBhEteVP9HlGMs6Ie3yektX-",
+                Description = "Italian Hospital profile picture"
+            }
+        },
+        new Place()
+        {
+            Title= "Collège St. Joseph De L’Apparition",
+            Description = "The school is teaching “the advanced level” for the English and French language in all the educational stages (from kindergarten to high school) using the modern technology.",
+            ProfileImage = new Image()
+            {
+                Url = "https://drive.google.com/uc?export=view&id=1_kboy-ruukjdmL1zeywkGMrykW_3wHrh",
+                Description = "St. Joseph profile picture"
+            }
+        },
+        new Place()
+        {
+            Title= $"Italian Hospital {"Umberto I"}",
+            Description = "The Italian hospital seeks to provide the ultimate patient care according to the international standard guideline. More than 700 employees work in the hospital for the aim of serving over 50,000 patient’s per year.",
+            ProfileImage = new Image()
+            {
+                Url = "https://drive.google.com/uc?export=view&id=1NVUfSwp4BBhEteVP9HlGMs6Ie3yektX-",
+                Description = "Italian Hospital profile picture"
+            }
+        },
+        new Place()
+        {
+            Title= "Collège St. Joseph De L’Apparition",
+            Description = "The school is teaching “the advanced level” for the English and French language in all the educational stages (from kindergarten to high school) using the modern technology.",
+            ProfileImage = new Image()
+            {
+                Url = "https://drive.google.com/uc?export=view&id=1_kboy-ruukjdmL1zeywkGMrykW_3wHrh",
+                Description = "St. Joseph profile picture"
+            }
+        },
+        new Place()
+        {
+            Title= $"Italian Hospital {"Umberto I"}",
+            Description = "The Italian hospital seeks to provide the ultimate patient care according to the international standard guideline. More than 700 employees work in the hospital for the aim of serving over 50,000 patient’s per year.",
+            ProfileImage = new Image()
+            {
+                Url = "https://drive.google.com/uc?export=view&id=1NVUfSwp4BBhEteVP9HlGMs6Ie3yektX-",
+                Description = "Italian Hospital profile picture"
+            }
         }
     };
 }

@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33801.468
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldDiscovery.Server", "WorldDiscovery\Server\WorldDiscovery.Server.csproj", "{2770F28E-22B1-448E-AB60-0E0C0B56B612}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldDiscovery.Server", "WorldDiscovery\Server\WorldDiscovery.Server.csproj", "{2770F28E-22B1-448E-AB60-0E0C0B56B612}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldDiscovery.Client", "WorldDiscovery\Client\WorldDiscovery.Client.csproj", "{90DAA857-714E-4176-8F9F-AA2A38F5215C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldDiscovery.Client", "WorldDiscovery\Client\WorldDiscovery.Client.csproj", "{90DAA857-714E-4176-8F9F-AA2A38F5215C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldDiscovery.Shared", "WorldDiscovery\Shared\WorldDiscovery.Shared.csproj", "{EC1DDD57-47D9-4DD6-9111-E88EF8F72298}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldDiscovery.Shared", "WorldDiscovery\Shared\WorldDiscovery.Shared.csproj", "{EC1DDD57-47D9-4DD6-9111-E88EF8F72298}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
