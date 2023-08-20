@@ -1,0 +1,94 @@
+﻿@page "/user-profile"
+@using WorldDiscovery.Shared
+
+<div class="profile-header">
+
+</div>
+
+<div class="places-container">
+    @if (Places.Count > 0)
+    {
+        <div class="places-content">
+            @foreach (var item in Places)
+            {
+                <PlaceCard Place=@item />
+            }
+        </div>
+    }
+    else
+    {
+        <div class="new-content">
+            <img src="https://drive.google.com/uc?export=view&id=1ljGiQs7aUHGwaEar4S1uGRVdqnpdYELD" alt="Camera Picture" class="camera-pic" />
+            <h4>You don't have any published places yet. Click on the <span class="blue">camera</span> to share your experiences with others.</h4>
+        </div>
+    }
+</div>
+
+
+@code {
+    //List<Place> Places = new List<Place>()
+    //{
+    //    new Place()
+    //    {
+    //        Title= "Collège St. Joseph De L’Apparition",
+    //        Description = "The school is teaching “the advanced level” for the English and French language in all the educational stages (from kindergarten to high school) using the modern technology.",
+    //        ProfileImage = new Image() 
+    //        { 
+    //            Url = "https://drive.google.com/uc?export=view&id=1_kboy-ruukjdmL1zeywkGMrykW_3wHrh",
+    //            Description = "St. Joseph profile picture"
+    //        }
+    //    },
+    //    new Place()
+    //    {
+    //        Title= $"Italian Hospital {"Umberto I"}",
+    //        Description = "The Italian hospital seeks to provide the ultimate patient care according to the international standard guideline. More than 700 employees work in the hospital for the aim of serving over 50,000 patient’s per year.",
+    //        ProfileImage = new Image()
+    //        {
+    //            Url = "https://drive.google.com/uc?export=view&id=1NVUfSwp4BBhEteVP9HlGMs6Ie3yektX-",
+    //            Description = "Italian Hospital profile picture"
+    //        }
+    //    },
+    //    new Place()
+    //    {
+    //        Title= "Collège St. Joseph De L’Apparition",
+    //        Description = "The school is teaching “the advanced level” for the English and French language in all the educational stages (from kindergarten to high school) using the modern technology.",
+    //        ProfileImage = new Image()
+    //        {
+    //            Url = "https://drive.google.com/uc?export=view&id=1_kboy-ruukjdmL1zeywkGMrykW_3wHrh",
+    //            Description = "St. Joseph profile picture"
+    //        }
+    //    },
+    //    new Place()
+    //    {
+    //        Title= $"Italian Hospital {"Umberto I"}",
+    //        Description = "The Italian hospital seeks to provide the ultimate patient care according to the international standard guideline. More than 700 employees work in the hospital for the aim of serving over 50,000 patient’s per year.",
+    //        ProfileImage = new Image()
+    //        {
+    //            Url = "https://drive.google.com/uc?export=view&id=1NVUfSwp4BBhEteVP9HlGMs6Ie3yektX-",
+    //            Description = "Italian Hospital profile picture"
+    //        }
+    //    },
+    //    new Place()
+    //    {
+    //        Title= "Collège St. Joseph De L’Apparition",
+    //        Description = "The school is teaching “the advanced level” for the English and French language in all the educational stages (from kindergarten to high school) using the modern technology.",
+    //        ProfileImage = new Image()
+    //        {
+    //            Url = "https://drive.google.com/uc?export=view&id=1_kboy-ruukjdmL1zeywkGMrykW_3wHrh",
+    //            Description = "St. Joseph profile picture"
+    //        }
+    //    },
+    //    new Place()
+    //    {
+    //        Title= $"Italian Hospital {"Umberto I"}",
+    //        Description = "The Italian hospital seeks to provide the ultimate patient care according to the international standard guideline. More than 700 employees work in the hospital for the aim of serving over 50,000 patient’s per year.",
+    //        ProfileImage = new Image()
+    //        {
+    //            Url = "https://drive.google.com/uc?export=view&id=1NVUfSwp4BBhEteVP9HlGMs6Ie3yektX-",
+    //            Description = "Italian Hospital profile picture"
+    //        }
+    //    }
+    //};
+
+    List<Place> Places = new List<Place>();
+}

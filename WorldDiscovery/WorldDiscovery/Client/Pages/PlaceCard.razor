@@ -1,0 +1,24 @@
+﻿@using WorldDiscovery.Shared
+
+<div class="card">
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+                <img src=@Place.ProfileImage.Url alt=@Place.ProfileImage.Description class="profile-image" />
+            </div>
+            <div class="col">
+                <h4 class="card-title">@Place.Title</h4>
+            </div>
+        </div>
+        <div class="row description-row">
+            <div class="col">
+                <p class="card-text">@Place.Description</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public Place? Place { get; set; }
+}

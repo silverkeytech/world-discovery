@@ -1,7 +1,76 @@
-﻿@page "/signup"
+﻿@page "/sign-up"
+@using WorldDiscovery.Shared
+@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
 
-<h3>SignUp Page</h3>
+<PageTitle>Sign Up</PageTitle>
+
+<div class="signup-page">
+    <div class="signup-container">
+        <div @onclick="() => goBack()">
+            <img src="https://drive.google.com/uc?export=view&id=1_TBKgcGXylebxX0974RgBVeYKjo7rlev" alt="close" class="close-logo" />
+        </div>
+        <div class="signup-header">
+            <img src="https://drive.google.com/uc?export=view&id=112ekDarKNkVxPk-iqvFuAxg1ykHgOzJq" alt="World Discovery Logo" class="logo" />
+            <h3>Create an account</h3>
+        </div>
+        <div class="signup-form">
+            <EditForm Model="_signUpInput" OnSubmit="HandleSignUpSumbit">
+                <div class="col mb-3">
+                    <label for="inputFirstName" class="form-label">First Name</label>
+                    <InputText class="form-control" id="inputFirstName" @bind-Value=_signUpInput.FirstName required />
+                </div>
+                <div class="col mb-3">
+                    <label for="inputLastName" class="form-label">Last Name</label>
+                    <InputText class="form-control" id="inputLastName" @bind-Value=_signUpInput.LastName required />
+                </div>
+                <div class="col mb-3">
+                    <label for="inputEmail" class="form-label">Email address</label>
+                    <InputText type="email" class="form-control" id="inputEmail" @bind-Value=_signUpInput.Email required />
+                </div>
+                <div class="col mb-3">
+                    <label for="inputPassword" class="form-label">Password</label>
+                    <InputText type="password" class="form-control" id="inputPassword" @bind-Value=_signUpInput.Password required />
+                </div>
+                <div class="text-danger error-msg">@_errorMessage</div>
+                <button type="submit" class="btn btn-danger signup-submit">Sign Up</button>
+                <div class="already-have-account">
+                    <p>Already have an account? <span class="login" @onclick='() => NavigationManager.NavigateTo("/login")'>Sign In</span></p>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+</div>
 
 @code {
+    private SignUpInput _signUpInput { get; set; } = new();
+    private string _errorMessage { get; set; } = "";
 
+    private async Task goBack()
+    {
+        await JSRuntime.InvokeVoidAsync("goBack");
+    }
+
+    public async Task HandleSignUpSumbit()
+    {
+        Console.WriteLine($"-------- Login Credentials are {_signUpInput.Email}, {_signUpInput.Password}");
+
+        var json = JsonSerializer.Serialize(_signUpInput);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+        var response = await Http.PostAsync("/auth/sign-up", content);
+
+        switch (response.StatusCode)
+        {
+            case HttpStatusCode.OK:
+                NavigationManager.NavigateTo("/");
+                break;
+            case HttpStatusCode.BadRequest:
+                _errorMessage = "All fileds are required.";
+                break;
+            default:
+                _errorMessage = "Something went wrong. Please try again later!";
+                break;
+        }
+    }
 }

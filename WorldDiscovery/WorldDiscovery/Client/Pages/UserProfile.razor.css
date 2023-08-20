@@ -1,0 +1,60 @@
+﻿.profile-header {
+    background-color: white;
+    width: 100vw;
+    height: 25vh;
+}
+
+.places-container {
+    background-color: white;
+    margin: auto;
+    margin-top: 80px;
+    padding: 5vh 5vw;
+    height: 55vh;
+    width: 74vw;
+    border-radius: 20px;
+    overflow: auto;
+}
+
+.places-content {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 5vh;
+}
+
+.new-content {
+    justify-content: center;
+    text-align: center;
+    margin: auto;
+    margin-top: 30px;
+    width: 45vw;
+}
+
+.camera-pic {
+    width: 250px;
+    cursor: pointer;
+}
+
+.blue {
+    color: #51b2f3;
+}
+
+/* ------------------------ Small Devices ------------------------ */
+
+@media (max-width: 650px) {
+
+    .places-container {
+        height: 58vh;
+        width: 85vw;
+    }
+
+    .new-content {
+        margin-top: 30px;
+        width: 75vw;
+    }
+
+    .camera-pic {
+        width: 150px;
+        margin-bottom: 20px;
+    }
+}
