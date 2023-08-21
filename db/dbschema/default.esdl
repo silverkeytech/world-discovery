@@ -15,28 +15,49 @@ module default {
             constraint exclusive;
         };
         required category: str;
-        required created_by: str;
-        required last_updated: datetime;
         required description: str;
-        place_image: bytes;
+        multi labels: Label;
+
         facebook_link: str;
         website_link: str;
-        google_map: str;
-        required address: str;
         required email: str;
         required phone_number: str;
+
+        required address: Address;
+        place_image: Image;
         multi sections: Section;
-        multi labels: Label;
+
+        required created_by: User;
+        required last_updated: datetime;
     }
 
     type Label {
-        required name: str;
+        required name: str {
+            constraint exclusive;
+        };
         required category: LabelCategory;
     }
 
     type LabelCategory {
-        required property name: str;
-        required property color: str;
+        required name: str {
+            constraint exclusive;
+        };
+        required background: str;
+        required font_color: str;
+    }
+
+    type Address {
+        required street_number: int32;
+        required street_name: str;
+        required city: str;
+        required country: str;
+        google_map: str;
+    }
+
+    type Image {
+        required title: str;
+        required description: str;
+        required url: str;
     }
 
     type Section {

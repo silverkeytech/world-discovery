@@ -1,0 +1,267 @@
+# -------------------- Inserting Addresses --------------------
+
+INSERT Address {
+    street_number := 2,
+    street_name := "Al-Sergany Street, Al-Abbasia",
+    city := "Cairo",
+    country := "Egypt",
+    google_map := "https://goo.gl/maps/nj11r8YPwFouN41w8",
+};
+INSERT Address {
+    street_number := 17,
+    street_name := "El Sarayat Street, Abbassieh",
+    city := "Cairo",
+    country := "Egypt",
+    google_map := "https://goo.gl/maps/xwF7iBXfuiWpMk7v8",
+};
+
+# -------------------- Inserting Some Labels --------------------
+
+INSERT LabelCategory {
+    name := "Working Hours",
+    background := "#FF463B",
+    font_color := "white",
+};
+INSERT LabelCategory {
+    name := "Gender",
+    background := "green",
+    font_color := "white",
+};
+INSERT LabelCategory {
+    name := "Education Levels",
+    background := "blue",
+    font_color := "white",
+};
+INSERT LabelCategory {
+    name := "Language",
+    background := "red",
+    font_color := "white",
+};
+INSERT LabelCategory {
+    name := "Medicine",
+    background := "#4284f5",
+    font_color := "white",
+};
+INSERT LabelCategory {
+    name := "Facility",
+    background := "purple",
+    font_color := "white",
+};
+
+# -------------------- Inserting Some Labels --------------------
+
+INSERT Label {
+    name := "Open 24/7",
+    category := (
+        SELECT LabelCategory
+        FILTER .name = "Working Hours"
+    )
+};
+INSERT Label {
+    name := "Girls",
+    category := (
+        SELECT LabelCategory
+        FILTER .name = "Gender"
+    )
+};
+INSERT Label {
+    name := "Boys",
+    category := (
+        SELECT LabelCategory
+        FILTER .name = "Gender"
+    )
+};
+INSERT Label {
+    name := "Kindergarten",
+    category := (
+        SELECT LabelCategory
+        FILTER .name = "Education Levels"
+    )
+};
+INSERT Label {
+    name := "Preschool",
+    category := (
+        SELECT LabelCategory
+        FILTER .name = "Education Levels"
+    )
+};
+INSERT Label {
+    name := "High School",
+    category := (
+        SELECT LabelCategory
+        FILTER .name = "Education Levels"
+    )
+};
+INSERT Label {
+    name := "Bachelor's Degree",
+    category := (
+        SELECT LabelCategory
+        FILTER .name = "Education Levels"
+    )
+};
+INSERT Label {
+    name := "Master's Degree",
+    category := (
+        SELECT LabelCategory
+        FILTER .name = "Education Levels"
+    )
+};
+INSERT Label {
+    name := "PhD",
+    category := (
+        SELECT LabelCategory
+        FILTER .name = "Education Levels"
+    )
+};
+INSERT Label {
+    name := "French",
+    category := (
+        SELECT LabelCategory
+        FILTER .name = "Language"
+    )
+};
+INSERT Label {
+    name := "English",
+    category := (
+        SELECT LabelCategory
+        FILTER .name = "Language"
+    )
+};
+INSERT Label {
+    name := "German",
+    category := (
+        SELECT LabelCategory
+        FILTER .name = "Language"
+    )
+};
+INSERT Label {
+    name := "Spanish",
+    category := (
+        SELECT LabelCategory
+        FILTER .name = "Language"
+    )
+};
+INSERT Label {
+    name := "General Surgery",
+    category := (
+        SELECT LabelCategory
+        FILTER .name = "Medicine"
+    )
+};
+INSERT Label {
+    name := "School",
+    category := (
+        SELECT LabelCategory
+        FILTER .name = "Facility"
+    )
+};
+INSERT Label {
+    name := "Hospital",
+    category := (
+        SELECT LabelCategory
+        FILTER .name = "Facility"
+    )
+};
+INSERT Label {
+    name := "University",
+    category := (
+        SELECT LabelCategory
+        FILTER .name = "Facility"
+    )
+};
+
+# -------------------- Inserting A User --------------------
+
+INSERT User {
+    first_name := "Millania",
+    last_name := "Sameh",
+    email := "millaniasameh@yahoo.com",
+    password := "millania",
+    join_date := datetime_of('2023-08-21T10:30:00Z'),
+};
+
+# -------------------- Inserting Some Sections --------------------
+
+INSERT Section {
+    title := "Services offered by the hostpital",
+    description := "Different Specialized Clinics\nEmergency\nBlood Transfusion Center\nLaboratory\nRadiology\nDay Surgery\nHistopathology & Telepathology",
+};
+INSERT Section {
+    title := "Departments in the hostpital",
+    description := "General Medicine\nNephrology\nGeneral Surgery\nPediatric\nGeriatric\nObstetrics & Gynaecology\nOrthopaedy & Traumatology\nOphtalmology\nOtorhinolaryngology",
+};
+INSERT Section {
+    title := "Advanced Specialty Units in the hostpital",
+    description := "General Intensive Care Unit (I.C.U.)\nCardiology and Coronary Care Unit (C.C.U.)\nCatheterization Center\nDialysis\nDiabetic Food Center\nIncubators\nOne Day Surgery\nEndoscopies Laparoscopic Interdictor",
+};
+
+# -------------------- Inserting Some Places --------------------
+
+INSERT Place {
+    name := "Italian Hospital 'Umberto I'",
+    category := "Hospital",
+    description := "The Italian hospital seeks to provide the ultimate patient care according to the international standard guideline. More than 700 employees work in the hospital for the aim of serving over 50,000 patient’s per year.",
+    labels := (
+        SELECT Label FILTER .name IN {"Open 24/7", "General Surgrey"}
+    ),
+
+    facebook_link := "https://www.facebook.com/italianhospitalcairo",
+    website_link := "https://www.italianhospital.com/",
+    email := "info@italianhospital.com",
+    phone_number := "+20 100 6540 088",
+
+    address := (
+        SELECT Address
+        FILTER .street_name = "Al-Sergany Street, Al-Abbasia"
+        LIMIT 1
+    ),
+    place_image := (
+        INSERT Image {
+            title := "Italian Hospital",
+            description := "Italian Hospital profile picture",
+            url := "https://drive.google.com/uc?export=view&id=1NVUfSwp4BBhEteVP9HlGMs6Ie3yektX-",
+        }
+    ),
+    sections := (
+        SELECT Section FILTER .title IN {"Services offered by the hostpital", "Departments in the hostpital", "Advanced Specialty Units in the hostpital"}
+    ),
+
+    created_by := (
+        SELECT User
+        FILTER .email = "millaniasameh@yahoo.com"
+    ),
+    last_updated := datetime_of('2023-08-21T10:30:00Z'),
+};
+
+INSERT Place {
+    name := "Collège St. Joseph De L’Apparition",
+    category := "School",
+    description := "The school is teaching “the advanced level” for the English and French language in all the educational stages (from kindergarten to high school) using the modern technology.",
+    labels := (
+        SELECT Label FILTER .name IN {"Girls", "Kindergarten", "French", "School"}
+    ),
+
+    facebook_link := "https://www.facebook.com/StJoseph.abbasya",
+    website_link := "http://www.stjosephappar.com/",
+    email := "st.josephabbasya@yahoo.com",
+    phone_number := "02 24821257",
+
+    address := (
+        SELECT Address
+        FILTER .street_name = "Al-Sergany Street, Al-Abbasia"
+        LIMIT 1
+    ),
+    place_image := (
+        INSERT Image {
+            title := "Collège St. Joseph De L’Apparition",
+            description := "Saint Joseph profile picture",
+            url := "https://drive.google.com/uc?export=view&id=1_kboy-ruukjdmL1zeywkGMrykW_3wHrh",
+        }
+    ),
+
+    created_by := (
+        SELECT User
+        FILTER .email = "millaniasameh@yahoo.com"
+    ),
+    last_updated := datetime_of('2023-08-21T10:30:00Z'),
+};

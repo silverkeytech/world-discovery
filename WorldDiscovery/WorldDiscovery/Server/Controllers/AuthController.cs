@@ -57,7 +57,7 @@ namespace WorldDiscovery.Server.Controllers
         public async Task<IActionResult> SignUp()
         {
             var requestBody = await new StreamReader(Request.Body).ReadToEndAsync();
-            var newUser = JsonSerializer.Deserialize<SignUpInput>(requestBody);
+            var newUser = JsonSerializer.Deserialize<User>(requestBody);
 
             if (newUser != null)
             {

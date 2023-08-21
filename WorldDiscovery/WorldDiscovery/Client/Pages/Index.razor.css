@@ -92,6 +92,17 @@
     gap: 5vh;
 }
 
+.error-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.error-msg {
+    font-family: cursive;
+    text-align: center;
+}
+
 /* ------------------------ Small Devices ------------------------ */
 
 @media (max-width: 650px) {
