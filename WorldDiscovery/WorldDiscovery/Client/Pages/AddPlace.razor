@@ -1,0 +1,30 @@
+﻿@page "/add-place"
+<div class= "center-container">
+    <img src="images/logo.png" class="icon-size" />
+    <h4> Share you experience</h4>
+    <TabControlPlace>
+      <TabPagePlace Text="General">
+        <h1>The first tab</h1>
+      </TabPagePlace>
+      <TabPagePlace Text="Contact us">
+        <h1>The second tab</h1>
+      </TabPagePlace>
+      <TabPagePlace Text="Address">
+        <h1>The third tab</h1>
+      </TabPagePlace>
+      <TabPagePlace Text="Images">
+            <h1>The third tab</h1>
+      </TabPagePlace>
+       <TabPagePlace Text="More Sections">
+            <h1>The third tab</h1>
+       </TabPagePlace>
+    </TabControlPlace>
+</div>
+@code {
+    private int activeTab = 1;
+
+    private void SetActiveTab(int tabNumber)
+    {
+        activeTab = tabNumber;
+    }
+}
