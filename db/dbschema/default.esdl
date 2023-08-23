@@ -49,6 +49,7 @@ module default {
     type Address {
         required street_number: int32;
         required street_name: str;
+        required neighbourhood: str;
         required city: str;
         required country: str;
         google_map: str;
