@@ -10,6 +10,9 @@ namespace WorldDiscovery.Shared
         [JsonPropertyName("street_name")]
         public string StreetName { get; set; } = string.Empty;
 
+        [JsonPropertyName("neighbourhood")]
+        public string Neighbourhood { get; set; } = string.Empty;
+
         [JsonPropertyName("city")]
         public string City { get; set; } = string.Empty;
 

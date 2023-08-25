@@ -1,0 +1,78 @@
+﻿.profile-header {
+    background-color: white;
+    width: 100vw;
+    height: 35vh;
+    display: flex;
+    gap: 80px;
+    align-items: center;
+    padding-left: 17.5vw;
+}
+
+.close-logo {
+    position: absolute;
+    top: 5px;
+    left: 0;
+}
+
+.close-logo-img {
+    height: 50px;
+    cursor: pointer;
+}
+
+.edit-logo {
+    position: absolute;
+    top: 5px;
+    right: 7px;
+}
+
+.edit-logo-img {
+    height: 40px;
+    cursor: pointer;
+}
+
+.profile-image {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.info-container {
+    display: flex;
+    gap: 20px;
+}
+
+.label {
+    background-color: red;
+    color: white;
+    margin-bottom: 10px;
+    text-align: center;
+    border-radius: 20px;
+    padding: 1px 15px;
+}
+
+/* ------------------------------------------------------------- */
+
+.place-container {
+    background-color: white;
+    margin: auto;
+    margin-top: 40px;
+    padding: 5vh 5vw;
+    height: 55vh;
+    width: 75vw;
+    border-radius: 20px;
+    overflow: auto;
+}
+
+.header {
+    margin-top: 30px
+}
+
+p {
+    margin-bottom: 0;
+}
+
+a {
+    color: #51b2f3;
+    text-decoration: none;
+}

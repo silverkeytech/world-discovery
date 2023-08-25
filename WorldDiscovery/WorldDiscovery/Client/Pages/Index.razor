@@ -5,7 +5,6 @@
 
 <PageTitle>Index</PageTitle>
 
-
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
         <div>
@@ -19,12 +18,12 @@
     </div>
 </nav>
 
-
 <div class="search-section">
     <div class="input-group mb-3 search-field">
         <input type="text" class="form-control" placeholder="Search..." aria-label="Recipient's username" aria-describedby="button-addon2">
         <button class="btn btn-outline-secondary" type="button" id="button-addon2">Go</button>
     </div>
+    @*<input type="color" id="favcolor" name="favcolor" value="#ff0000"><br><br>*@
 </div>
 
 
@@ -54,7 +53,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        var response = await Http.GetAsync("/place/get-places?");
+        var response = await Http.GetAsync("/place/get-places");
 
         if (response.IsSuccessStatusCode)
         {

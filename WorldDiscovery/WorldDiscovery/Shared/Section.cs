@@ -8,6 +8,6 @@ namespace WorldDiscovery.Shared
         public string Title { get; set; } = string.Empty;
 
         [JsonPropertyName("description")]
-        public string Description { get; set; } = string.Empty;
+        public string[] Description { get; set; } = new string[] {};
     }
 }

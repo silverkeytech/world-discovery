@@ -1,0 +1,187 @@
+﻿@page "/place-profile/{name}"
+@using WorldDiscovery.Shared
+@inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
+
+<div class="profile-header">
+    <div class="close-logo" @onclick="() => goBack()">
+        <img src="https://drive.google.com/uc?export=view&id=1eF6uEHw10IvVXbo5WkvpbSCpcOkcyiIW" alt="close" class="close-logo-img" />
+    </div>
+
+    <div>
+        <img src="https://drive.google.com/uc?export=view&id=1NVUfSwp4BBhEteVP9HlGMs6Ie3yektX-" alt=@Place.PlaceImage.Description class="profile-image" />
+    </div>
+
+    <div>
+        <div>
+            <h1>@Place.Name</h1>
+        </div>
+
+        <div class="info-container">
+            <div>
+                <p>Facebook:</p>
+                <p>Website:</p>
+                <p>Address:</p>
+                <p>Google map:</p>
+                <p>Email:</p>
+                <p>Tel:</p>
+                <p>Last updated:</p>
+            </div>
+
+            <div>
+                <p><a href=@Place.FacebookLink>@Place.FacebookLink</a></p>
+                <p><a href=@Place.WebsiteLink>@Place.WebsiteLink</a></p>
+                <p>@Place.Address.StreetNumber @Place.Address.StreetName, @Place.Address.Neighbourhood, @Place.Address.City, @Place.Address.Country</p>
+                <p><a href=@Place.Address.GoogleMap>@Place.Address.GoogleMap</a></p>
+                <p><a href="#">@Place.Email</a></p>
+                <p>@Place.PhoneNumber</p>
+                <p>@Place.LastUpdated.ToString("dddd, dd MMMM yyyy")</p>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        @foreach(var item in Place.Labels)
+        {
+            <p class="label" style="background-color: @item.Category.Background; color: @item.Category.FontColor">@item.Name</p>
+        }
+    </div>
+
+    <div class="edit-logo" @onclick="GoToEditPage">
+        <img src="https://drive.google.com/uc?export=view&id=1LD3Iozu6R81kFYPo5nMRjiThX3BBB0BN" alt="close" class="edit-logo-img" />
+    </div>
+</div>
+
+<div class="place-container">
+    <h2>About the @Place.Category</h2>
+    <p>@Place.Description</p>
+    @foreach (var item in Place.Sections)
+    {
+        <h2 class="header">@item.Title</h2>
+        @foreach (var item2 in item.Description)
+        {
+            <p>@item2</p>
+        }
+    }
+</div>
+
+@code {
+    [Parameter]
+    public string Name { get; set; } = string.Empty;
+
+    Place Place = new Place()
+    {
+        Name = "Italian Hospital 'Umberto I'",
+        Category = "Hospital",
+        Description = "The Italian hospital seeks to provide the ultimate patient care according to the international standard guideline. More than 700 employees work in the hospital for the aim of serving over 50,000 patient’s per year.",
+        Labels = new List<Label>
+        {
+            new Label()
+            {
+                Name = "Open 24/7",
+                Category = new LabelCategory()
+                {
+                    Name = "Working Hours",
+                    Background = "#FF463B",
+                    FontColor = "white",
+                }
+            },
+            new Label()
+            {
+                Name = "General Surgery",
+                Category = new LabelCategory()
+                {
+                    Name = "Medicine",
+                    Background = "#4284f5",
+                    FontColor = "white",
+                }
+            }
+        },
+        FacebookLink = "https://www.facebook.com/italianhospitalcairo",
+        WebsiteLink = "https://www.italianhospital.com/",
+        Email = "info@italianhospital.com",
+        PhoneNumber = "+20 100 6540 088",
+        Address = new Address()
+        {
+            StreetNumber = 2,
+            StreetName = "Al-Sergany Street",
+            Neighbourhood = "Al-Abbasia",
+            City = "Cairo",
+            Country = "Egypt",
+            GoogleMap = "https://goo.gl/maps/nj11r8YPwFouN41w8",
+        },
+        PlaceImage = new Image()
+        {
+            Title = "Italian Hospital",
+            Description = "Italian Hospital profile picture",
+            Url = "https://drive.google.com/uc?export=view&id=1NVUfSwp4BBhEteVP9HlGMs6Ie3yektX-",
+        },
+        Sections = new List<Section>
+        {
+            new Section()
+            {
+                Title = "Services offered by the hostpital",
+                Description = new string[]
+                {
+                    "Different Specialized Clinics",
+                    "Emergency",
+                    "Blood Transfusion Center",
+                    "Laboratory",
+                    "Radiology",
+                    "Day Surgery",
+                    "Histopathology & Telepathology"
+                },
+            },
+            new Section()
+            {
+                Title = "Departments in the hostpital",
+                Description = new string[]
+                {
+                    "General Medicine",
+                    "Nephrology",
+                    "General Surgery",
+                    "Pediatric",
+                    "Geriatric",
+                    "Obstetrics & Gynaecology",
+                    "Orthopaedy & Traumatology",
+                    "Ophtalmology",
+                    "Otorhinolaryngology"
+                }
+            },
+            new Section()
+            {
+                Title = "Advanced Specialty Units in the hostpital",
+                Description = new string[]
+                {
+                    "General Intensive Care Unit (I.C.U.)",
+                    "Cardiology and Coronary Care Unit (C.C.U.)",
+                    "Catheterization Center",
+                    "Dialysis",
+                    "Diabetic Food Center",
+                    "Incubators",
+                    "One Day Surgery",
+                    "Endoscopies Laparoscopic Interdictor"
+                }
+            }
+        },
+        CreatedBy = new User()
+        {
+            FirstName = "Millania",
+            LastName = "Sameh",
+            Email = "millaniasameh@yahoo.com",
+            Password = "millania",
+            JoinDate = DateTime.Now,
+        },
+        LastUpdated = DateTime.Now
+    };
+
+    private async Task goBack()
+    {
+        await JSRuntime.InvokeVoidAsync("goBack");
+    }
+
+    public void GoToEditPage()
+    {
+        NavigationManager.NavigateTo($"/edit/{Place.Name}");
+    }
+}

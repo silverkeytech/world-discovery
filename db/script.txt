@@ -218,7 +218,7 @@ INSERT Place {
     category := "Hospital",
     description := "The Italian hospital seeks to provide the ultimate patient care according to the international standard guideline. More than 700 employees work in the hospital for the aim of serving over 50,000 patient’s per year.",
     labels := (
-        SELECT Label FILTER .name IN {"Open 24/7", "General Surgrey"}
+        SELECT Label FILTER .name IN {"Open 24/7", "General Surgery"}
     ),
 
     facebook_link := "https://www.facebook.com/italianhospitalcairo",
