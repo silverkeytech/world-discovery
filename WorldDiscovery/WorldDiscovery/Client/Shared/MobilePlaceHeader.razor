@@ -1,0 +1,77 @@
+﻿@using WorldDiscovery.Shared
+@inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
+
+<div class="profile-header small-device">
+    <div id="carouselExampleIndicators" class="carousel slide" style="width: 100vw;" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="50000">
+                <div class="centeralize-content">
+                    <img src="https://drive.google.com/uc?export=view&id=1NVUfSwp4BBhEteVP9HlGMs6Ie3yektX-" alt=@Place.PlaceImage.Description class="profile-image" />
+                </div>
+            </div>
+            <div class="carousel-item" data-bs-interval="50000">
+                <div class="centeralize-content">
+                    <div>
+                        <div>
+                            <h1 class="place-name">@Place.Name</h1>
+                        </div>
+
+                        <div class="info-container">
+                            <div>
+                                <p>Facebook:</p>
+                                <p>Website:</p>
+                                <p>Address:</p>
+                                <p>Google map:</p>
+                                <p>Email:</p>
+                                <p>Tel:</p>
+                                <p>Last updated:</p>
+                            </div>
+
+                            <div>
+                                <p><a href=@Place.FacebookLink>@Place.FacebookLink</a></p>
+                                <p><a href=@Place.WebsiteLink>@Place.WebsiteLink</a></p>
+                                <p>@Place.Address.StreetNumber @Place.Address.StreetName, @Place.Address.Neighbourhood, @Place.Address.City, @Place.Address.Country</p>
+                                <p><a href=@Place.Address.GoogleMap>@Place.Address.GoogleMap</a></p>
+                                <p><a href="#">@Place.Email</a></p>
+                                <p>@Place.PhoneNumber</p>
+                                <p>@Place.LastUpdated.ToString("dddd, dd MMMM yyyy")</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item" data-bs-interval="50000">
+                <div class="centeralize-content">
+                    <div>
+                        @foreach (var item in Place.Labels)
+                        {
+                            <p class="label" style="background-color: @item.Category.Background; color: @item.Category.FontColor">@item.Name</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public Place? Place { get; set; }
+
+    private async Task goBack()
+    {
+        await JSRuntime.InvokeVoidAsync("goBack");
+    }
+
+    public void GoToEditPage()
+    {
+        NavigationManager.NavigateTo($"/edit/{Place.Name}");
+    }
+}
+

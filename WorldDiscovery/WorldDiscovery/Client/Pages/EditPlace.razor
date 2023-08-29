@@ -1,39 +1,20 @@
-﻿@page "/place-profile/{name}"
+﻿@page "/edit/{name}"
 @using WorldDiscovery.Shared
 @inject IJSRuntime JSRuntime
 @inject NavigationManager NavigationManager
 
-<div class="desktop-header">
-    <DesktopPlaceHeader Place=@Place />
-</div>
-
-<div class="mobile-header">
-    <MobilePlaceHeader Place=@Place />
-</div>
-
-<div class="place-container">
-    <h2>About the @Place.Category</h2>
-    <p>@Place.Description</p>
-    @foreach (var item in Place.Sections)
-    {
-        <h2 class="header">@item.Title</h2>
-        @foreach (var item2 in item.Description)
-        {
-            <p>@item2</p>
-        }
-    }
-</div>
+<MobilePlaceHeader Place=@Place />
 
 @code {
     [Parameter]
     public string Name { get; set; } = string.Empty;
 
     Place Place = new Place()
-    {
-        Name = "Italian Hospital 'Umberto I'",
-        Category = "Hospital",
-        Description = "The Italian hospital seeks to provide the ultimate patient care according to the international standard guideline. More than 700 employees work in the hospital for the aim of serving over 50,000 patient’s per year.",
-        Labels = new List<Label>
+        {
+            Name = "Italian Hospital 'Umberto I'",
+            Category = "Hospital",
+            Description = "The Italian hospital seeks to provide the ultimate patient care according to the international standard guideline. More than 700 employees work in the hospital for the aim of serving over 50,000 patient’s per year.",
+            Labels = new List<Label>
         {
             new Label()
             {
@@ -56,26 +37,26 @@
                 }
             }
         },
-        FacebookLink = "https://www.facebook.com/italianhospitalcairo",
-        WebsiteLink = "https://www.italianhospital.com/",
-        Email = "info@italianhospital.com",
-        PhoneNumber = "+20 100 6540 088",
-        Address = new Address()
-        {
-            StreetNumber = 2,
-            StreetName = "Al-Sergany Street",
-            Neighbourhood = "Al-Abbasia",
-            City = "Cairo",
-            Country = "Egypt",
-            GoogleMap = "https://goo.gl/maps/nj11r8YPwFouN41w8",
-        },
-        PlaceImage = new Image()
-        {
-            Title = "Italian Hospital",
-            Description = "Italian Hospital profile picture",
-            Url = "https://drive.google.com/uc?export=view&id=1NVUfSwp4BBhEteVP9HlGMs6Ie3yektX-",
-        },
-        Sections = new List<Section>
+            FacebookLink = "https://www.facebook.com/italianhospitalcairo",
+            WebsiteLink = "https://www.italianhospital.com/",
+            Email = "info@italianhospital.com",
+            PhoneNumber = "+20 100 6540 088",
+            Address = new Address()
+            {
+                StreetNumber = 2,
+                StreetName = "Al-Sergany Street",
+                Neighbourhood = "Al-Abbasia",
+                City = "Cairo",
+                Country = "Egypt",
+                GoogleMap = "https://goo.gl/maps/nj11r8YPwFouN41w8",
+            },
+            PlaceImage = new Image()
+            {
+                Title = "Italian Hospital",
+                Description = "Italian Hospital profile picture",
+                Url = "https://drive.google.com/uc?export=view&id=1NVUfSwp4BBhEteVP9HlGMs6Ie3yektX-",
+            },
+            Sections = new List<Section>
         {
             new Section()
             {
@@ -123,14 +104,19 @@
                 }
             }
         },
-        CreatedBy = new User()
-        {
-            FirstName = "Millania",
-            LastName = "Sameh",
-            Email = "millaniasameh@yahoo.com",
-            Password = "millania",
-            JoinDate = DateTime.Now,
-        },
-        LastUpdated = DateTime.Now
-    };
+            CreatedBy = new User()
+            {
+                FirstName = "Millania",
+                LastName = "Sameh",
+                Email = "millaniasameh@yahoo.com",
+                Password = "millania",
+                JoinDate = DateTime.Now,
+            },
+            LastUpdated = DateTime.Now
+        };
+
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine(Name);
+    }
 }

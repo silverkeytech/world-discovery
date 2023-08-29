@@ -1,0 +1,140 @@
+﻿.profile-header {
+    background-color: white;
+    width: 100vw;
+    height: 35vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-image {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.place-name {
+    font-size: 25px;
+}
+
+.info-container {
+    display: flex;
+    gap: 20px;
+    font-size: 12px;
+}
+
+.label {
+    background-color: red;
+    color: white;
+    margin-bottom: 10px;
+    text-align: center;
+    border-radius: 20px;
+    padding: 1px 15px;
+    width: 150px;
+    font-size: 15px;
+}
+
+a {
+    color: #51b2f3;
+    text-decoration: none;
+}
+
+p {
+    margin-bottom: 0;
+}
+
+.centeralize-content {
+    display: flex;
+    justify-content: center;
+}
+
+.carousel-indicators [data-bs-target] {
+    background-color: black;
+}
+
+.carousel-indicators {
+    position: fixed;
+    top: 31vh;
+}
+
+@media (max-width: 380px) {
+    .profile-image {
+        width: 180px;
+        height: 180px;
+    }
+}
+
+@media (width: 540px) {
+    .profile-image {
+        width: 180px;
+        height: 180px;
+    }
+}
+
+@media (width: 280px) {
+    .place-name {
+        font-size: 20px;
+    }
+
+    .info-container {
+        gap: 10px;
+        font-size: 9.5px;
+    }
+}
+
+@media (min-width: 750px) and (max-width: 1000px) {
+
+    .place-name {
+        font-size: 35px;
+    }
+
+    .profile-image {
+        width: 270px;
+        height: 270px;
+    }
+
+    .info-container {
+        font-size: 18px;
+        gap: 30px;
+    }
+
+    .label {
+        width: 200px;
+        font-size: 20px;
+    }
+
+    .carousel-indicators {
+        top: 31.5vh;
+    }
+}
+
+@media (width: 1024px) {
+
+    .profile-header {
+        height: 38vh;
+    }
+
+    .place-name {
+        font-size: 20px;
+    }
+
+    .profile-image {
+        width: 160px;
+        height: 160px;
+    }
+
+    .info-container {
+        font-size: 13px;
+        gap: 30px;
+    }
+
+    .label {
+        width: 150px;
+        font-size: 15px;
+    }
+
+    .carousel-indicators {
+        top: 34vh;
+    }
+}
