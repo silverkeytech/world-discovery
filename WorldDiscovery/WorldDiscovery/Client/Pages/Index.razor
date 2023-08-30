@@ -12,7 +12,14 @@
             <span class="navbar-brand" @onclick='() => NavigationManager.NavigateTo("/")'>WorldDiscovery</span>
         </div>
         <div>
-            @*<button class="btn btn-danger" @onclick='() => NavigationManager.NavigateTo("/login")'>Login</button>*@
+            @*<AuthorizeView>
+                <Authorized>
+                    <button class="btn btn-danger profile" @onclick='() => NavigationManager.NavigateTo("/user-profile")'>MS</button>
+                </Authorized>
+                <NotAuthorized>
+                    <button class="btn btn-danger" @onclick='() => NavigationManager.NavigateTo("/login")'>Login</button>
+                </NotAuthorized>
+            </AuthorizeView>*@
             <button class="btn btn-danger profile" @onclick='() => NavigationManager.NavigateTo("/user-profile")'>MS</button>
         </div>
     </div>

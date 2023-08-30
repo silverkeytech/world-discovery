@@ -1,5 +1,5 @@
 using EdgeDB;
-using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 builder.Services.AddEdgeDB(EdgeDBConnection.FromInstanceName("worlddiscoverydb"), config =>
 {
     config.SchemaNamingStrategy = INamingStrategy.SnakeCaseNamingStrategy;
