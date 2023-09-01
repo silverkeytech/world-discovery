@@ -2,7 +2,7 @@
 @page "/add-place"
 @inject HttpClient httpClient
 <div class="center-header">
-    <img src="images/logo.png" class="icon-size" />
+    <img src="images/logo.png" class="logo-size" />
     <h4>Share your experience</h4>
 </div>
 <div class="center-container">
@@ -123,6 +123,32 @@
             </EditForm>
       </TabPagePlace>
       <TabPagePlace Text="Images">
+            <EditForm Model="@place" OnValidSubmit="HandleValidSubmit">
+                <form class="with-padding-top">
+                    <div class="row with-padding-bottom">
+                        <div class="col-md-4">
+                            <label for="imagetitle" class="form-label">Image Title<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="imagetitle">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="description" class="form-label">Description<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="description">
+                        </div>
+                        <div class="col-md-4 icon-image">
+                            <img src="images/camera-icon.png" class="icon-size" /> Upload Image <span class="text-danger">*</span>
+                        </div>
+                    </div>
+                    <div class="row with-padding-bottom">
+                        <div class="col-md-4 icon-image">
+                            <img src="images/plus-icon.png" class="icon-size" /> Add Image
+                        </div>
+                    </div>
+                    <div class="col-md-12 d-flex justify-content-end rounded-button fixed-button">
+                        <button type="submit" class="btn btn-danger">Save</button>
+                    </div>
+
+                </form>
+            </EditForm>
       </TabPagePlace>
        <TabPagePlace Text="More Sections">
             <h1>The third tab</h1>
