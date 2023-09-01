@@ -1,6 +1,14 @@
 ﻿using EdgeDB;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Diagnostics.Metrics;
+using System.Reflection.Emit;
+using System;
+using System.Reflection.Metadata.Ecma335;
+using System.Xml.Linq;
 using WorldDiscovery.Shared;
+using static System.Collections.Specialized.BitVector32;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WorldDiscovery.Server.Controllers
 {
@@ -33,19 +41,53 @@ namespace WorldDiscovery.Server.Controllers
         [HttpGet("get-label-categories")]
         public async Task<IActionResult> GetAllLabelCategories()
         {
-            var labelCategories = await _client.QueryAsync<LabelCategory>("SELECT LabelCategory {*};");
-
-            if (labelCategories != null)
+            try
             {
-                return Ok(labelCategories.ToList());
-            }
+                var labelCategories = await _client.QueryAsync<LabelCategory>("SELECT LabelCategory {*};");
 
-            return BadRequest();
+                if (labelCategories != null)
+                {
+                    return Ok(labelCategories.ToList());
+                }
+                else
+                {
+                    return NotFound("No label categories found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving label categories: {ex.Message}");
+                return StatusCode(500, "Internal Server Error: Unable to retrieve label categories.");
+            }
         }
+
+        [HttpGet("get-labels")]
+        public async Task<IActionResult> GetLabels()
+        {
+            try
+            {
+                var labels = await _client.QueryAsync<Shared.Label>("SELECT Label {*};");
+
+                if (labels != null)
+                {
+                    return Ok(labels.ToList());
+                }
+                else
+                {
+                    return NotFound("No label categories found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving label categories: {ex.Message}");
+                return StatusCode(500, "Internal Server Error: Unable to retrieve label categories.");
+            }
+        }
+
 
         [HttpPost("add-place")]
         public async Task<IActionResult> AddPlace([FromBody] Place place)
-        {
+        {          
             try
             {
                 if (place == null)
@@ -54,38 +96,69 @@ namespace WorldDiscovery.Server.Controllers
                 }
 
                 await _client.ExecuteAsync(@"
-                    INSERT Place {
-                        name := <str>$name,
-                        category := <str>$category,
-                        description := <str>$description,
-                        labels := <array<str>>$labels,
-                        facebook_link := <str>$facebook_link,
-                        website_link := <str>$website_link,
-                        email := <str>$email,
-                        phone_number := <str>$phone_number,
-                        address := <jsonb>$address,
-                        place_image := <jsonb>$place_image,
-                        sections := <array<str>>$sections,
-                        created_by := <str>$created_by,
-                        last_updated := <datetime>$last_updated,
-                    };
+                INSERT Place {
+                    name := <str>$name,
+                    category := <str>$category,
+                    description := <str>$description,
+                    labels := (
+                        SELECT Label FILTER .name IN array_unpack(<array<str>>$labelsparameter)
+                    ),
+                    facebook_link := <str>$facebook_link,
+                    website_link := <str>$website_link,
+                    email := <str>$email,
+                    phone_number := <str>$phone_number,
+                    address := (INSERT Address {
+                        street_number := <int32>$street_number,
+                        street_name := <str>$street_name,
+                        city := <str>$city,
+                        country := <str>$country,
+                        google_map := <str>$google_map,
+                        neighbourhood := <str>$neighbourhood
+                    }),
+                    place_image := (INSERT Image {
+                        title := <str>$image_title,
+                        description := <str>$image_description,
+                        url := <str>$image_url
+                    }),
+                    sections := (
+                        FOR section IN <array<tuple<title: str, description: str>>><json>$sections
+                        UNION (
+                            INSERT Section {
+                                title := section.title,
+                                description := section.description
+                            }
+                        )
+                    ),
+                    created_by := (SELECT User FILTER .email = <str>$created_by_email LIMIT 1),
+                    last_updated := <datetime>$last_updated
+                };
                 ", new
                 {
                     name = place.Name,
                     category = place.Category,
                     description = place.Description,
-                    labels = place.Labels,
+                    labelsparameter = place.Labels.Select(label => label.Name).ToList(),
                     facebook_link = place.FacebookLink,
                     website_link = place.WebsiteLink,
                     email = place.Email,
                     phone_number = place.PhoneNumber,
-                    address = place.Address,
-                    place_image = place.PlaceImage, 
-                    sections = place.Sections,
-                    created_by = place.CreatedBy,
+                    street_number = place.Address.StreetNumber,
+                    street_name = place.Address.StreetName,
+                    city = place.Address.City,
+                    country = place.Address.Country,
+                    google_map = place.Address.GoogleMap,
+                    neighbourhood = place.Address.Neighbourhood,
+                    image_title = place.PlaceImage.Title,
+                    image_description = place.PlaceImage.Description,
+                    image_url = place.PlaceImage.Url,
+                    sections = place.Sections.Select(section => new
+                    {
+                        title = section.Title,
+                        description = section.Description
+                    }).ToList(),
+                    created_by_email = place.CreatedBy.Email,
                     last_updated = place.LastUpdated
                 });
-
                 return Ok("Place added successfully");
             }
             catch (Exception ex)
