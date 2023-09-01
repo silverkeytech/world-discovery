@@ -1,11 +1,55 @@
-﻿@page "/add-place"
-<div class= "center-container">
+﻿@using WorldDiscovery.Shared
+@page "/add-place"
+@inject HttpClient httpClient
+<div class="center-header">
     <img src="images/logo.png" class="icon-size" />
-    <h4> Share you experience</h4>
+    <h4>Share your experience</h4>
+</div>
+<div class="center-container">
     <TabControlPlace>
-      <TabPagePlace Text="General">
-        <h1>The first tab</h1>
+        <TabPagePlace Text="General">
+            <EditForm Model="@place" OnValidSubmit="HandleValidSubmit">
+                <form class="with-padding-top">
+                        <div class="row with-padding-bottom" >
+                            <div class="col-md-6">
+                                <label for="name" class="form-label">Name<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="name" placeholder="Enter your name">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="category" class="form-label">Category<span class="text-danger">*</span></label>
+                                <select class="form-select" id="category">
+                                    <option value="category1">Category 1</option>
+                                    <option value="category2">Category 2</option>
+                                    <option value="category3">Category 3</option>
+                                </select>
+                            </div>
+                        </div>
+                         <div class="row with-padding-bottom">
+                            <div class="col-md-12">
+                                <label for="about" class="form-label">About<span class="text-danger">*</span> <span class="text-muted">230 characters</span></label>
+                                <textarea class="form-control" id="about" rows="5"></textarea>
+                            </div>
+                        </div>
+                         <div class="row with-padding-bottom">
+                            <div class="col-md-6">
+                                <label for="label" class="form-label">Choose the labels you want to apply<span class="text-danger">*</span></label>
+                                <select class="form-select" id="label">
+                                    <option value="label1">label 1</option>
+                                    <option value="label2">label 2</option>
+                                    <option value="label3">label 3</option>
+                                </select>
+                            </div>
+                         </div>
+                        <span class="custom-link">
+                                Can't find your label ?<a> Add a new one</a>
+                        </span>
+                        <div class="col-md-12 d-flex justify-content-end">
+                            <button type="submit" class="btn btn-danger">Save</button>
+                        </div>
+                    </form>
+            </EditForm>
       </TabPagePlace>
+
       <TabPagePlace Text="Contact us">
         <h1>The second tab</h1>
       </TabPagePlace>
@@ -26,5 +70,68 @@
     private void SetActiveTab(int tabNumber)
     {
         activeTab = tabNumber;
+    }
+
+    private Place place = new Place();
+    private List<LabelCategory> categories = new List<LabelCategory>();
+    private List<Label> labels = new List<Label>();
+    private string selectedLabel = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        categories = await GetLabelCategories();
+        labels = await GetLabels();
+    }
+
+    private async Task<List<LabelCategory>> GetLabelCategories()
+    {
+
+         var response = await httpClient.GetAsync("/get-label-categories");
+         if (response.IsSuccessStatusCode)
+         {
+             var content = await response.Content.ReadAsStringAsync();
+             return JsonSerializer.Deserialize<List<LabelCategory>>(content);
+         }
+         else
+         {
+             return new List<LabelCategory>();
+         }
+    }
+
+    private async Task<List<Label>> GetLabels()
+    {
+         var response = await httpClient.GetAsync("/get-labels");
+         if (response.IsSuccessStatusCode)
+         {
+             var content = await response.Content.ReadAsStringAsync();
+             return JsonSerializer.Deserialize<List<Label>>(content);
+         }
+         else
+         {
+             return new List<Label>();
+         }
+    }
+
+    private void AddLabel()
+    {
+        if (!string.IsNullOrEmpty(selectedLabel))
+        {
+            place.Labels.Add(new Label { Name = selectedLabel });
+            selectedLabel = "";
+        }
+    }
+
+    private async Task HandleValidSubmit()
+    {
+         var jsonContent = new StringContent(JsonSerializer.Serialize(place), Encoding.UTF8, "application/json");
+         var response = await httpClient.PostAsync("/add-place", jsonContent);
+         if (response.IsSuccessStatusCode)
+         {
+             // Handle success
+         }
+         else
+         {
+             // Handle error
+         }
     }
 }

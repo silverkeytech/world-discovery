@@ -1,11 +1,37 @@
-﻿.center-container {
+﻿html, body {
+    height: 100vh;
+}
+.center-header {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    /*height: 100vh;*/
+    justify-content: center;
+    padding-bottom : 40px;
+    padding-top:20px;
+}
+.center-container {
+    display: flex;
+    flex-direction: column;
+/*    min-height: 100vh;*/
+    padding-right: 100px;
+    padding-left: 100px;
+    /*height: 100%;*/
 }
 .icon-size {
-    width: 32px;
-    height: 32px;
+    width: 50px;
+    height: 50px;
+}
+.custom-link a {
+    color: #007bff !important;
+    cursor: pointer;
+    text-decoration: none;
+}
+.with-padding-bottom {
+    padding-bottom: 20px; 
+}
+.with-padding-top {
+    padding-top: 20px;
+}
+span {
+    padding-right: 20px;
 }
