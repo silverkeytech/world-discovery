@@ -51,7 +51,32 @@
       </TabPagePlace>
 
       <TabPagePlace Text="Contact us">
-        <h1>The second tab</h1>
+            <EditForm Model="@place" OnValidSubmit="HandleValidSubmit">
+                <form class="with-padding-top">
+                    <h4 class="with-padding-top">Social Media</h4>
+                    <div class="row with-padding-bottom">
+                        <div class="col-md-6">
+                            <label for="facebook" class="form-label">Facebook</label>
+                            <input type="text" class="form-control" id="facebook">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="website" class="form-label">Website</label>
+                            <input type="text" class="form-control" id="website">
+                        </div>
+                    </div>
+                    <h4 class="with-padding-top">Contact us</h4>
+                    <div class="row with-padding-bottom">
+                        <div class="col-md-6">
+                            <label for="email" class="form-label">Email<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="email">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="phonenumber" class="form-label">Phone Number<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="phonenumber">
+                        </div>
+                    </div>
+                </form>
+            </EditForm>
       </TabPagePlace>
       <TabPagePlace Text="Address">
         <h1>The third tab</h1>
