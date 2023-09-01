@@ -1,11 +1,16 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using WorldDiscovery.Shared;
 using EdgeDB;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace WorldDiscovery.Server.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class AuthController : Controller
     {
         private readonly EdgeDBClient _client;
@@ -19,35 +24,49 @@ namespace WorldDiscovery.Server.Controllers
         public async Task<IActionResult> Login()
         {
             var requestBody = await new StreamReader(Request.Body).ReadToEndAsync();
-            var newUser = JsonSerializer.Deserialize<LoginInput>(requestBody);
+            var user = JsonSerializer.Deserialize<LoginInput>(requestBody);
 
-            if (newUser != null)
+            if (user != null)
             {
-                if (string.IsNullOrEmpty(newUser.Email)
-                || string.IsNullOrEmpty(newUser.Password))
+                if (string.IsNullOrEmpty(user.Email)
+                || string.IsNullOrEmpty(user.Password))
                 {
                     return BadRequest();
                 }
 
-                //var query = $@"SELECT Contact {{ email_address, password }} FILTER .username = <str>email_address and .password = <str>password;";
-                //var users = await _client.QueryAsync<LoginInput>(query, new Dictionary<string, object?>
-                //{
-                //    {"email", newUser.Email},
-                //    {"password", newUser.Password},
-                //});
-
-                Console.WriteLine($"-------- Login Credentials are {newUser.Email}, {newUser.Password}");
-
-                var users = "";
-
-                if (users.Count() > 0 )
+                var query = $@"SELECT User {{ first_name, last_name, email, password, join_date }} FILTER .email = <str>$email;";
+                var foundUser = await _client.QueryAsync<User>(query, new Dictionary<string, object?>
                 {
-                    return Ok();
+                    {"email", user.Email},
+                });
+
+                if (foundUser.Count() > 0 )
+                {
+                    var passwordHasher = new PasswordHasher<string>();
+                    var passwordVerificationResult = passwordHasher.VerifyHashedPassword(null, foundUser.First()?.Password ?? string.Empty, user.Password);
+
+                    if (passwordVerificationResult == PasswordVerificationResult.Success)
+                    {
+                        var claims = new List<Claim>
+                        {
+                            new Claim(ClaimTypes.Name, foundUser.First()?.FirstName ?? string.Empty)
+                        };
+
+                        var claimsIdentity = new ClaimsIdentity(
+                            claims,
+                            CookieAuthenticationDefaults.AuthenticationScheme
+                        );
+
+                        await HttpContext.SignInAsync(
+                            CookieAuthenticationDefaults.AuthenticationScheme,
+                            new ClaimsPrincipal(claimsIdentity)
+                        );
+
+                        return Ok();
+                    }
                 } 
-                else
-                {
-                    return Unauthorized();
-                }
+
+                return Unauthorized();
             }
 
             return BadRequest();
@@ -69,7 +88,18 @@ namespace WorldDiscovery.Server.Controllers
                     return BadRequest();
                 }
 
-                Console.WriteLine($"-------- Login Credentials are {newUser.Email}, {newUser.Password}");
+                var query = "INSERT User {first_name := <str>$first_name, last_name := <str>$last_name, email := <str>$email, password := <str>$password, join_date := <datetime>$join_date}";
+                var passwordHasher = new PasswordHasher<string>();
+                string hashedPassword = passwordHasher.HashPassword(null, newUser.Password);
+
+                await _client.ExecuteAsync(query, new Dictionary<string, object?>
+                {
+                    {"first_name", newUser.FirstName},
+                    {"last_name", newUser.LastName},
+                    {"email", newUser.Email},
+                    {"password", hashedPassword},
+                    {"join_date", newUser.JoinDate}
+                });
 
                 return Ok();
             }

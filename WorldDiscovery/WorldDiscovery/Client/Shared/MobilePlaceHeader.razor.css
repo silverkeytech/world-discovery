@@ -58,6 +58,28 @@ p {
     top: 31vh;
 }
 
+.close-logo {
+    position: absolute;
+    top: 5px;
+    left: 0;
+}
+
+.close-logo-img {
+    height: 30px;
+    cursor: pointer;
+}
+
+.edit-logo {
+    position: absolute;
+    top: 5px;
+    right: 7px;
+}
+
+.edit-logo-img {
+    height: 25px;
+    cursor: pointer;
+}
+
 @media (max-width: 380px) {
     .profile-image {
         width: 180px;
@@ -83,29 +105,49 @@ p {
     }
 }
 
-@media (min-width: 750px) and (max-width: 1000px) {
+@media (min-width: 750px) {
 
     .place-name {
-        font-size: 35px;
-    }
-
-    .profile-image {
-        width: 270px;
-        height: 270px;
+        font-size: 30px;
     }
 
     .info-container {
-        font-size: 18px;
+        font-size: 15px;
         gap: 30px;
     }
 
     .label {
-        width: 200px;
-        font-size: 20px;
+        width: 170px;
+        font-size: 18px;
     }
 
     .carousel-indicators {
         top: 31.5vh;
+    }
+
+    .close-logo-img {
+        height: 55px;
+    }
+
+    .edit-logo-img {
+        height: 45px;
+    }
+}
+
+@media (width: 820px) {
+    .profile-image {
+        width: 270px;
+        height: 270px;
+    }
+}
+
+@media (min-width: 750px) and (max-width: 1300px) {
+    .close-logo-img {
+        height: 45px;
+    }
+
+    .edit-logo-img {
+        height: 35px;
     }
 }
 
