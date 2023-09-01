@@ -12,10 +12,8 @@
 .center-container {
     display: flex;
     flex-direction: column;
-/*    min-height: 100vh;*/
     padding-right: 100px;
     padding-left: 100px;
-    /*height: 100%;*/
 }
 .icon-size {
     width: 50px;
