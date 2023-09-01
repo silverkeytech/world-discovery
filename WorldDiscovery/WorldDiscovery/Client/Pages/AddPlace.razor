@@ -43,7 +43,7 @@
                         <span class="custom-link">
                                 Can't find your label ?<a> Add a new one</a>
                         </span>
-                        <div class="col-md-12 d-flex justify-content-end">
+                         <div class="col-md-12 d-flex justify-content-end  rounded-button fixed-button">
                             <button type="submit" class="btn btn-danger">Save</button>
                         </div>
                     </form>
@@ -75,14 +75,54 @@
                             <input type="text" class="form-control" id="phonenumber">
                         </div>
                     </div>
+                    <div class="col-md-12 d-flex justify-content-end  rounded-button fixed-button">
+                        <button type="submit" class="btn btn-danger">Save</button>
+                    </div>
                 </form>
             </EditForm>
       </TabPagePlace>
       <TabPagePlace Text="Address">
-        <h1>The third tab</h1>
+            <EditForm Model="@place" OnValidSubmit="HandleValidSubmit">
+                <form class="with-padding-top">
+                    <h4 class="with-padding-top"> Location</h4>
+                    <div class="row with-padding-bottom">
+                        <div class="col-md-6">
+                            <label for="googlemap" class="form-label">Google Map</label>
+                            <input type="text" class="form-control" id="googlemap">
+                        </div>
+                    </div>
+                    <h4 class="with-padding-top"> Detailed address</h4>
+                    <div class="row with-padding-bottom">
+                        <div class="col-md-4">
+                            <label for="neighbourhood" class="form-label">Neighbourhood<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="neighbourhood">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="streetname" class="form-label">Street Name<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="streetname">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="streetnumber" class="form-label">Street Number<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="streetnumber">
+                        </div>
+                    </div>
+                    <div class="row with-padding-bottom">
+                        <div class="col-md-4">
+                            <label for="city" class="form-label">City<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="city">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="country" class="form-label">Country<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="country">
+                        </div>
+                    </div>
+                    <div class="col-md-12 d-flex justify-content-end rounded-button fixed-button">
+                        <button type="submit" class="btn btn-danger">Save</button>
+                    </div>
+                </form>
+            </EditForm>
       </TabPagePlace>
       <TabPagePlace Text="Images">
-            <h1>The third tab</h1>
       </TabPagePlace>
        <TabPagePlace Text="More Sections">
             <h1>The third tab</h1>
