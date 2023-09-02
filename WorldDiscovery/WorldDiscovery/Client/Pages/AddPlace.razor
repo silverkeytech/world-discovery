@@ -8,16 +8,16 @@
 <div class="center-container">
     <TabControlPlace>
         <TabPagePlace Text="General">
-            <EditForm Model="@place" OnValidSubmit="HandleValidSubmit">
+            <EditForm Model="@place">
                 <form class="with-padding-top">
                     <div class="row with-padding-bottom">
                         <div class="col-md-6">
                             <label for="name" class="form-label">Name<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="name" placeholder="Enter your name">
+                            <input type="text" class="form-control" id="name" @bind="place.Name">
                         </div>
                         <div class="col-md-6">
                             <label for="category" class="form-label">Category<span class="text-danger">*</span></label>
-                            <select class="form-select" id="category">
+                            <select class="form-select" id="category" @bind="place.Category">
                                 <option value="category1">Category 1</option>
                                 <option value="category2">Category 2</option>
                                 <option value="category3">Category 3</option>
@@ -27,13 +27,13 @@
                     <div class="row with-padding-bottom">
                         <div class="col-md-12">
                             <label for="about" class="form-label">About<span class="text-danger">*</span> <span class="text-muted">230 characters</span></label>
-                            <textarea class="form-control" id="about" rows="5"></textarea>
+                            <textarea class="form-control" id="about" rows="5" @bind="place.Description"></textarea>
                         </div>
                     </div>
                     <div class="row with-padding-bottom">
                         <div class="col-md-6">
                             <label for="label" class="form-label">Choose the labels you want to apply<span class="text-danger">*</span></label>
-                            <select class="form-select" id="label">
+                            <select class="form-select" id="label" @bind="selectedLabels">
                                 <option value="label1">label 1</option>
                                 <option value="label2">label 2</option>
                                 <option value="label3">label 3</option>
@@ -44,35 +44,35 @@
                         Can't find your label ?<a> Add a new one</a>
                     </span>
                     <div class="col-md-12 d-flex justify-content-end  rounded-button fixed-button">
-                        <button type="submit" class="btn btn-danger">Save</button>
+                        <button type="submit" class="btn btn-danger" @onclick="AddLabelAndSave">Save</button>
                     </div>
                 </form>
             </EditForm>
         </TabPagePlace>
 
         <TabPagePlace Text="Contact us">
-            <EditForm Model="@place" OnValidSubmit="HandleValidSubmit">
+            <EditForm Model="@place">
                 <form class="with-padding-top">
                     <h4 class="with-padding-top">Social Media</h4>
                     <div class="row with-padding-bottom">
                         <div class="col-md-6">
                             <label for="facebook" class="form-label">Facebook</label>
-                            <input type="text" class="form-control" id="facebook">
+                            <input type="text" class="form-control" id="facebook" @bind="place.FacebookLink">
                         </div>
                         <div class="col-md-6">
                             <label for="website" class="form-label">Website</label>
-                            <input type="text" class="form-control" id="website">
+                            <input type="text" class="form-control" id="website" @bind="place.WebsiteLink">
                         </div>
                     </div>
                     <h4 class="with-padding-top">Contact us</h4>
                     <div class="row with-padding-bottom">
                         <div class="col-md-6">
                             <label for="email" class="form-label">Email<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="email">
+                            <input type="text" class="form-control" id="email" @bind="place.Email">
                         </div>
                         <div class="col-md-6">
                             <label for="phonenumber" class="form-label">Phone Number<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="phonenumber">
+                            <input type="text" class="form-control" id="phonenumber" @bind="place.PhoneNumber">
                         </div>
                     </div>
                     <div class="col-md-12 d-flex justify-content-end  rounded-button fixed-button">
@@ -82,38 +82,38 @@
             </EditForm>
         </TabPagePlace>
         <TabPagePlace Text="Address">
-            <EditForm Model="@place" OnValidSubmit="HandleValidSubmit">
+            <EditForm Model="@place">
                 <form class="with-padding-top">
                     <h4 class="with-padding-top"> Location</h4>
                     <div class="row with-padding-bottom">
                         <div class="col-md-6">
                             <label for="googlemap" class="form-label">Google Map</label>
-                            <input type="text" class="form-control" id="googlemap">
+                            <input type="text" class="form-control" id="googlemap" @bind="place.Address.GoogleMap">
                         </div>
                     </div>
                     <h4 class="with-padding-top"> Detailed address</h4>
                     <div class="row with-padding-bottom">
                         <div class="col-md-4">
                             <label for="neighbourhood" class="form-label">Neighbourhood<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="neighbourhood">
+                            <input type="text" class="form-control" id="neighbourhood" @bind="place.Address.Neighbourhood">
                         </div>
                         <div class="col-md-4">
                             <label for="streetname" class="form-label">Street Name<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="streetname">
+                            <input type="text" class="form-control" id="streetname" @bind="place.Address.StreetName">
                         </div>
                         <div class="col-md-4">
                             <label for="streetnumber" class="form-label">Street Number<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="streetnumber">
+                            <input type="text" class="form-control" id="streetnumber" @bind="place.Address.StreetNumber">
                         </div>
                     </div>
                     <div class="row with-padding-bottom">
                         <div class="col-md-4">
                             <label for="city" class="form-label">City<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="city">
+                            <input type="text" class="form-control" id="city" @bind="place.Address.City">
                         </div>
                         <div class="col-md-4">
                             <label for="country" class="form-label">Country<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="country">
+                            <input type="text" class="form-control" id="country" @bind="place.Address.Country">
                         </div>
                     </div>
                     <div class="col-md-12 d-flex justify-content-end rounded-button fixed-button">
@@ -123,16 +123,16 @@
             </EditForm>
         </TabPagePlace>
         <TabPagePlace Text="Images">
-            <EditForm Model="@place" OnValidSubmit="HandleValidSubmit">
+            <EditForm Model="@place">
                 <form class="with-padding-top">
                     <div class="row with-padding-bottom">
                         <div class="col-md-4">
                             <label for="imagetitle" class="form-label">Image Title<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="imagetitle">
+                            <input type="text" class="form-control" id="imagetitle" @bind="place.PlaceImage.Title">
                         </div>
                         <div class="col-md-4">
                             <label for="description" class="form-label">Description<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="description">
+                            <input type="text" class="form-control" id="description" @bind="place.PlaceImage.Description">
                         </div>
                         <div class="col-md-4 icon-image">
                             <img src="images/camera.png" class="icon-size" /> Upload Image <span class="text-danger">*</span>
@@ -140,7 +140,7 @@
                     </div>
                     <div class="row with-padding-bottom">
                         <div class="col-md-4">
-                            <img src="images/plus-icon.png" class="icon-size" /> Add Image
+                            <img src="images/plus-icon.png" class="icon-size"/> Add Image
                         </div>
                     </div>
                     <div class="col-md-12 d-flex justify-content-end rounded-button fixed-button">
@@ -155,22 +155,22 @@
                     <div class="row with-padding-bottom">
                         <div class="col-md-6">
                             <label for="sectionname" class="form-label">Section Name</label>
-                            <input type="text" class="form-control" id="sectionname" placeholder="Enter your name">
+                            <input type="text" class="form-control" id="sectionname" @bind="newSection.Title">
                         </div>
                     </div>
                     <div class="row with-padding-bottom">
                         <div class="col-md-12">
                             <label for="about" class="form-label">About</label>
-                            <textarea class="form-control" id="about" rows="5"></textarea>
+                            <textarea class="form-control" id="about" rows="5" @bind="newSection.Description"></textarea>
                         </div>
                     </div>
                     <div class="row with-padding-bottom">
                         <div class="col-md-4">
-                            <img src="images/plus-icon.png" class="icon-size" /> Add a section
+                            <img src="images/plus-icon.png" class="icon-size"/> Add a section
                         </div>
                     </div>
                     <div class="col-md-12 d-flex justify-content-end rounded-button fixed-button">
-                        <button type="submit" class="btn btn-danger">Save</button>
+                        <button type="submit" class="btn btn-danger" @onclick="AddSectionAndSave">Save</button>
                     </div>
                 </form>
             </EditForm>
@@ -178,17 +178,19 @@
     </TabControlPlace>
 </div>
 @code {
+
     private int activeTab = 1;
+    //private List<string> selectedLabels = new List<string>();
+    private string selectedLabels = string.Empty;
+    private Place place = new Place();
+    private List<LabelCategory> categories = new List<LabelCategory>();
+    private List<Label> labels = new List<Label>();
+    private Section newSection = new Section();
 
     private void SetActiveTab(int tabNumber)
     {
         activeTab = tabNumber;
     }
-
-    private Place place = new Place();
-    private List<LabelCategory> categories = new List<LabelCategory>();
-    private List<Label> labels = new List<Label>();
-    private string selectedLabel = "";
 
     protected override async Task OnInitializedAsync()
     {
@@ -227,10 +229,33 @@
 
     private void AddLabel()
     {
-        if (!string.IsNullOrEmpty(selectedLabel))
-        {
-            place.Labels.Add(new Label { Name = selectedLabel });
-            selectedLabel = "";
+        //if (selectedLabels != null && selectedLabels.Count > 0)
+        //{
+        //    if (place.Labels == null)
+        //    {
+        //        place.Labels = new List<Label>();
+        //    }
+
+        //    foreach (var labelName in selectedLabels)
+        //    {
+        place.Labels.Add(new Label { Name = selectedLabels });
+        //    }
+
+        //    selectedLabels.Clear();
+        //}
+    }
+
+    private void AddSection()
+    {
+        if (!string.IsNullOrWhiteSpace(newSection.Title))
+        {       
+            place.Sections.Add(new Section
+                {
+                    Title = newSection.Title,
+                    Description = newSection.Description
+                });
+
+            newSection = new Section();
         }
     }
 
@@ -246,5 +271,15 @@
         {
             // Handle error
         }
+    }
+
+    private void AddLabelAndSave()
+    {
+        AddLabel();   
+    }
+
+    private void AddSectionAndSave()
+    {
+        AddSection();
     }
 }

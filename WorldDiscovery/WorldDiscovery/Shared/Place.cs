@@ -31,9 +31,6 @@ namespace WorldDiscovery.Shared
         [JsonPropertyName("address")]
         public Address Address { get; set; } = new();
 
-        [JsonPropertyName("location_url")]
-        public string LocationUrl { get; set; } = string.Empty;
-
         [JsonPropertyName("place_image")]
         public Image PlaceImage { get; set; } = new();
 

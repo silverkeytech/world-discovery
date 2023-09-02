@@ -22,8 +22,7 @@ module default {
         website_link: str;
         required email: str;
         required phone_number: str;
-        
-        location_url -> str;
+
         required address: Address;
         place_image: Image;
         multi sections: Section;
