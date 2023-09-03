@@ -3,8 +3,30 @@
 @inject IJSRuntime JSRuntime
 @inject NavigationManager NavigationManager
 
-<MobilePlaceHeader Place=@Place />
-
+<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-general" type="button" role="tab" aria-controls="pills-general" aria-selected="true">General</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-contact-us" type="button" role="tab" aria-controls="pills-contact-us" aria-selected="false">Contact us</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-address" type="button" role="tab" aria-controls="pills-address" aria-selected="false">Address</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-images" type="button" role="tab" aria-controls="pills-images" aria-selected="false">Images</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-more-sections" type="button" role="tab" aria-controls="pills-more-sections" aria-selected="false">More Sections</button>
+    </li>
+</ul>
+<div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="pills-general" role="tabpanel" aria-labelledby="pills-general-tab" tabindex="0">This is some placeholder content the Home tab's associated content. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling. You can use it with tabs, pills, and any other .nav-powered navigation.</div>
+    <div class="tab-pane fade" id="pills-contact-us" role="tabpanel" aria-labelledby="pills-contact-us-tab" tabindex="0">The tab JavaScript swaps classes to control the content visibility and styling. You can use it with tabs, pills, and any other .nav-powered navigation.</div>
+    <div class="tab-pane fade" id="pills-address" role="tabpanel" aria-labelledby="pills-address-tab" tabindex="0">This is some placeholder content the Home tab's associated content. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling. Pills, and any other .nav-powered navigation.</div>
+    <div class="tab-pane fade" id="pills-images" role="tabpanel" aria-labelledby="pills-images-tab" tabindex="0">This is some placeholder content the Home tab's associated content. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling. Pills, and any other .nav-powered navigation.</div>
+    <div class="tab-pane fade" id="pills-more-sections" role="tabpanel" aria-labelledby="pills-more-sections-tab" tabindex="0">This is some placeholder content the Home tab's associated content. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling. Pills, and any other .nav-powered navigation.</div>
+</div>
 @code {
     [Parameter]
     public string Name { get; set; } = string.Empty;
@@ -37,83 +59,56 @@
                 }
             }
         },
-            FacebookLink = "https://www.facebook.com/italianhospitalcairo",
-            WebsiteLink = "https://www.italianhospital.com/",
-            Email = "info@italianhospital.com",
-            PhoneNumber = "+20 100 6540 088",
-            Address = new Address()
-            {
-                StreetNumber = 2,
-                StreetName = "Al-Sergany Street",
-                Neighbourhood = "Al-Abbasia",
-                City = "Cairo",
-                Country = "Egypt",
-                GoogleMap = "https://goo.gl/maps/nj11r8YPwFouN41w8",
-            },
-            PlaceImage = new Image()
-            {
-                Title = "Italian Hospital",
-                Description = "Italian Hospital profile picture",
-                Url = "https://drive.google.com/uc?export=view&id=1NVUfSwp4BBhEteVP9HlGMs6Ie3yektX-",
-            },
-            Sections = new List<Section>
+        FacebookLink = "https://www.facebook.com/italianhospitalcairo",
+        WebsiteLink = "https://www.italianhospital.com/",
+        Email = "info@italianhospital.com",
+        PhoneNumber = "+20 100 6540 088",
+        Address = new Address()
+        {
+            StreetNumber = 2,
+            StreetName = "Al-Sergany Street",
+            Neighbourhood = "Al-Abbasia",
+            City = "Cairo",
+            Country = "Egypt",
+            GoogleMap = "https://goo.gl/maps/nj11r8YPwFouN41w8",
+        },
+        PlaceImage = new Image()
+        {
+            Title = "Italian Hospital",
+            Description = "Italian Hospital profile picture",
+            Url = "https://drive.google.com/uc?export=view&id=1NVUfSwp4BBhEteVP9HlGMs6Ie3yektX-",
+        },
+        Sections = new List<Section>
         {
             new Section()
             {
                 Title = "Services offered by the hostpital",
-                Description = new string[]
-                {
-                    "Different Specialized Clinics",
-                    "Emergency",
-                    "Blood Transfusion Center",
-                    "Laboratory",
-                    "Radiology",
-                    "Day Surgery",
-                    "Histopathology & Telepathology"
-                },
+                Description = "Different Specialized Clinics\nEmergency\nBlood Transfusion Center\nLaboratory\nRadiology\nDay Surgery\nHistopathology & Telepathology",
+
             },
             new Section()
             {
                 Title = "Departments in the hostpital",
-                Description = new string[]
-                {
-                    "General Medicine",
-                    "Nephrology",
-                    "General Surgery",
-                    "Pediatric",
-                    "Geriatric",
-                    "Obstetrics & Gynaecology",
-                    "Orthopaedy & Traumatology",
-                    "Ophtalmology",
-                    "Otorhinolaryngology"
-                }
+                Description = "General Medicine\nNephrology\nGeneral Surgery\nPediatric\nGeriatric\nObstetrics & Gynaecology\nOrthopaedy & Traumatology\nOphtalmology\nOtorhinolaryngology"
+
             },
             new Section()
             {
                 Title = "Advanced Specialty Units in the hostpital",
-                Description = new string[]
-                {
-                    "General Intensive Care Unit (I.C.U.)",
-                    "Cardiology and Coronary Care Unit (C.C.U.)",
-                    "Catheterization Center",
-                    "Dialysis",
-                    "Diabetic Food Center",
-                    "Incubators",
-                    "One Day Surgery",
-                    "Endoscopies Laparoscopic Interdictor"
-                }
+                Description = "General Intensive Care Unit (I.C.U.)\nCardiology and Coronary Care Unit (C.C.U.)\nCatheterization Center\nDialysis\nDiabetic Food Center\nIncubators\nOne Day Surgery\nEndoscopies Laparoscopic Interdictor"
+
             }
         },
-            CreatedBy = new User()
-            {
-                FirstName = "Millania",
-                LastName = "Sameh",
-                Email = "millaniasameh@yahoo.com",
-                Password = "millania",
-                JoinDate = DateTime.Now,
-            },
-            LastUpdated = DateTime.Now
-        };
+        CreatedBy = new User()
+        {
+            FirstName = "Millania",
+            LastName = "Sameh",
+            Email = "millaniasameh@yahoo.com",
+            Password = "millania",
+            JoinDate = DateTime.Now,
+        },
+        LastUpdated = DateTime.Now
+    };
 
     protected override async Task OnInitializedAsync()
     {

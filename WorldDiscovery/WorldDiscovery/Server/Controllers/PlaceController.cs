@@ -1,14 +1,7 @@
 ﻿using EdgeDB;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Reflection.Emit;
-using System;
-using System.Reflection.Metadata.Ecma335;
-using System.Xml.Linq;
 using WorldDiscovery.Shared;
-using static System.Collections.Specialized.BitVector32;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using WorldDiscovery.Shared.ViewModels;
 
 namespace WorldDiscovery.Server.Controllers
 {
@@ -23,12 +16,79 @@ namespace WorldDiscovery.Server.Controllers
             _client = client;
         }
 
+        [HttpGet("get-place")]
+        public async Task<IActionResult> GetPlaceByName(string name)
+        {
+            var query = $@" SELECT Place 
+            {{
+                name, 
+                category, 
+                description, 
+                labels: {{
+                    name,
+                    category: {{
+                        name,
+                        background,
+                        font_color
+                    }}
+                }}, 
+                facebook_link, 
+                website_link,
+                email,
+                phone_number,
+                address: {{
+                    street_number, 
+                    street_name, 
+                    neighbourhood, 
+                    city, 
+                    country, 
+                    google_map
+                }}, 
+                place_image: {{
+                    title,
+                    description,
+                    url
+                }},
+                sections: {{
+                    title,
+                    description
+                }},
+                created_by: {{
+                    first_name,
+                    last_name,
+                }},
+                last_updated
+            }} 
+            FILTER .name = <str>$name;";
+
+            var place = await _client.QueryAsync<Place>(query, new Dictionary<string, object?>
+            {
+                { "name", name},
+            });
+
+            if (place != null)
+            {
+                return Ok(place.FirstOrDefault());
+            }
+
+            return BadRequest();
+        }
+
         [HttpGet("get-places")]
         public async Task<IActionResult> GetAllPlaces()
         {
-            Console.WriteLine($"------- From the response -------");
-
-            var places = await _client.QueryAsync<Place>("SELECT Place {*};");
+            var places = await _client.QueryAsync<PlaceModel>(@"
+                SELECT Place 
+                {
+                    name,  
+                    description, 
+                    place_image: {
+                        title,
+                        description,
+                        url
+                    }
+                };
+            ");
 
             if (places != null)
             {

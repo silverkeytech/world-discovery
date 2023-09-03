@@ -1,18 +1,12 @@
 ﻿@using WorldDiscovery.Shared
+@using WorldDiscovery.Shared.ViewModels;
 @inject NavigationManager NavigationManager
 
 <div class="card" @onclick="GoToPlaceProfile">
     <div class="container">
         <div class="row">
             <div class="col-3">
-                @if (@Place.Name == "Collège St. Joseph De L’Apparition")
-                {
-                    <img src="images/school.jpg" alt=@Place.PlaceImage.Description class="profile-image" />
-                }
-                else
-                {
-                    <img src="images/hospital.jpg" alt=@Place.PlaceImage.Description class="profile-image" />
-                }
+                <img src=@Place.PlaceImage.Url alt=@Place.PlaceImage.Description class="profile-image" />
             </div>
             <div class="col">
                 <h4 class="card-title">@Place.Name</h4>
@@ -28,7 +22,7 @@
 
 @code {
     [Parameter]
-    public Place? Place { get; set; }
+    public PlaceModel? Place { get; set; }
 
     public void GoToPlaceProfile()
     {

@@ -1,106 +1,59 @@
 ﻿@page "/place-profile/{name}"
 @using WorldDiscovery.Shared
+@inject HttpClient Http
 @inject IJSRuntime JSRuntime
 @inject NavigationManager NavigationManager
 
 <div class="desktop-header">
-    <DesktopPlaceHeader Place=@Place />
+    <DesktopPlaceHeader Place=@_place />
 </div>
 
 <div class="mobile-header">
-    <MobilePlaceHeader Place=@Place />
+    <MobilePlaceHeader Place=@_place />
 </div>
 
-<div class="place-container">
-    <h2>About the @Place.Category</h2>
-    <p>@Place.Description</p>
-    @foreach (var item in Place.Sections)
-    {
-        <h2 class="header">@item.Title</h2>
-        @foreach (var item2 in item.Description.Split("\n"))
+@if (_place != null)
+{
+    <div class="place-container">
+        <h2>About the @_place.Category</h2>
+        <p>@_place.Description</p>
+        @foreach (var item in _place.Sections)
         {
-            <p>@item2</p>
+            <h2 class="header">@item.Title</h2>
+            @foreach (var item2 in item.Description.Split("\n"))
+            {
+                <p>@item2</p>
+            }
         }
-    }
-</div>
+    </div>
+}
+else
+{
+    <div class="results-background error-container">
+        <h2 class="text-danger error-msg">@_errorMessage</h2>
+    </div>
+}
+
 
 @code {
     [Parameter]
     public string Name { get; set; } = string.Empty;
 
-    Place Place = new Place()
+    private Place _place { get; set; } = new();
+    private string _errorMessage { get; set; } = "";
+
+    protected override async Task OnInitializedAsync()
     {
-        Name = "Italian Hospital 'Umberto I'",
-        Category = "Hospital",
-        Description = "The Italian hospital seeks to provide the ultimate patient care according to the international standard guideline. More than 700 employees work in the hospital for the aim of serving over 50,000 patient’s per year.",
-        Labels = new List<Label>
+        var response = await Http.GetAsync($"/place/get-place?name={Name}");
+
+        if (response.IsSuccessStatusCode)
         {
-            new Label()
-            {
-                Name = "Open 24/7",
-                Category = new LabelCategory()
-                {
-                    Name = "Working Hours",
-                    Background = "#FF463B",
-                    FontColor = "white",
-                }
-            },
-            new Label()
-            {
-                Name = "General Surgery",
-                Category = new LabelCategory()
-                {
-                    Name = "Medicine",
-                    Background = "#4284f5",
-                    FontColor = "white",
-                }
-            }
-        },
-        FacebookLink = "https://www.facebook.com/italianhospitalcairo",
-        WebsiteLink = "https://www.italianhospital.com/",
-        Email = "info@italianhospital.com",
-        PhoneNumber = "+20 100 6540 088",
-        Address = new Address()
-        {
-            StreetNumber = 2,
-            StreetName = "Al-Sergany Street",
-            Neighbourhood = "Al-Abbasia",
-            City = "Cairo",
-            Country = "Egypt",
-            GoogleMap = "https://goo.gl/maps/nj11r8YPwFouN41w8",
-        },
-        PlaceImage = new Image()
-        {
-            Title = "Italian Hospital",
-            Description = "Italian Hospital profile picture",
-            Url = "https://drive.google.com/uc?export=view&id=1NVUfSwp4BBhEteVP9HlGMs6Ie3yektX-",
-        },
-        Sections = new List<Section>
-        {
-            new Section()
-            {
-                Title = "Services offered by the hostpital",
-                Description = "Different Specialized Clinics\nEmergency\nBlood Transfusion Center\nLaboratory\nRadiology\nDay Surgery\nHistopathology & Telepathology",
-            },
-            new Section()
-            {
-                Title = "Departments in the hostpital",
-                Description = "General Medicine\nNephrology\nGeneral Surgery\nPediatric\nGeriatric\nObstetrics & Gynaecology\nOrthopaedy & Traumatology\nOphtalmology\nOtorhinolaryngology"
-            },
-            new Section()
-            {
-                Title = "Advanced Specialty Units in the hostpital",
-                Description = "General Intensive Care Unit (I.C.U.)\nCardiology and Coronary Care Unit (C.C.U.)\nCatheterization Center\nDialysis\nDiabetic Food Center\nIncubators\nOne Day Surgery\nEndoscopies Laparoscopic Interdictor"
-            }
-        },
-        CreatedBy = new User()
-        {
-            FirstName = "Millania",
-            LastName = "Sameh",
-            Email = "millaniasameh@yahoo.com",
-            Password = "millania",
-            JoinDate = DateTime.Now,
-        },
-        LastUpdated = DateTime.Now
-    };
+            string json = await response.Content.ReadAsStringAsync();
+            _place = JsonSerializer.Deserialize<Place>(json);
+
+            return;
+        }
+
+        _errorMessage = "Something went wrong. Please try again!";
+    }
 }

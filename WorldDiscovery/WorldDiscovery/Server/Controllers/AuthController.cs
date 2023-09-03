@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using WorldDiscovery.Shared.ViewModels;
 
 namespace WorldDiscovery.Server.Controllers
 {

@@ -4,14 +4,14 @@
 
 <div class="profile-header">
     <div class="close-logo" @onclick="() => goBack()">
-        <img src="https://drive.google.com/uc?export=view&id=1eF6uEHw10IvVXbo5WkvpbSCpcOkcyiIW" alt="close" class="close-logo-img" />
+        <img src="images/back.png" alt="close" class="close-logo-img" />
     </div>
 
     <div id="carouselExampleIndicators" class="carousel slide" style="width: 100vw;" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active" data-bs-interval="2000">
                 <div class="centeralize-content">
-                    <img src="https://drive.google.com/uc?export=view&id=1NVUfSwp4BBhEteVP9HlGMs6Ie3yektX-" alt=@Place.PlaceImage.Description class="profile-image" />
+                    <img src=@Place.PlaceImage.Url alt=@Place.PlaceImage.Description class="profile-image" />
                 </div>
             </div>
             <div class="carousel-item" data-bs-interval="10000">
@@ -64,7 +64,7 @@
     </div>
 
     <div class="edit-logo" @onclick="GoToEditPage">
-        <img src="https://drive.google.com/uc?export=view&id=1LD3Iozu6R81kFYPo5nMRjiThX3BBB0BN" alt="close" class="edit-logo-img" />
+        <img src="images/edit.png" alt="edit" class="edit-logo-img" />
     </div>
 </div>
 

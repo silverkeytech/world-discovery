@@ -1,4 +1,4 @@
-﻿namespace WorldDiscovery.Shared
+﻿namespace WorldDiscovery.Shared.ViewModels
 {
     public class LoginInput
     {
