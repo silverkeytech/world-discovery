@@ -17,7 +17,7 @@
     @foreach (var item in Place.Sections)
     {
         <h2 class="header">@item.Title</h2>
-        @foreach (var item2 in item.Description)
+        @foreach (var item2 in item.Description.Split("\n"))
         {
             <p>@item2</p>
         }
@@ -80,47 +80,17 @@
             new Section()
             {
                 Title = "Services offered by the hostpital",
-                Description = new string[]
-                {
-                    "Different Specialized Clinics",
-                    "Emergency",
-                    "Blood Transfusion Center",
-                    "Laboratory",
-                    "Radiology",
-                    "Day Surgery",
-                    "Histopathology & Telepathology"
-                },
+                Description = "Different Specialized Clinics\nEmergency\nBlood Transfusion Center\nLaboratory\nRadiology\nDay Surgery\nHistopathology & Telepathology",
             },
             new Section()
             {
                 Title = "Departments in the hostpital",
-                Description = new string[]
-                {
-                    "General Medicine",
-                    "Nephrology",
-                    "General Surgery",
-                    "Pediatric",
-                    "Geriatric",
-                    "Obstetrics & Gynaecology",
-                    "Orthopaedy & Traumatology",
-                    "Ophtalmology",
-                    "Otorhinolaryngology"
-                }
+                Description = "General Medicine\nNephrology\nGeneral Surgery\nPediatric\nGeriatric\nObstetrics & Gynaecology\nOrthopaedy & Traumatology\nOphtalmology\nOtorhinolaryngology"
             },
             new Section()
             {
                 Title = "Advanced Specialty Units in the hostpital",
-                Description = new string[]
-                {
-                    "General Intensive Care Unit (I.C.U.)",
-                    "Cardiology and Coronary Care Unit (C.C.U.)",
-                    "Catheterization Center",
-                    "Dialysis",
-                    "Diabetic Food Center",
-                    "Incubators",
-                    "One Day Surgery",
-                    "Endoscopies Laparoscopic Interdictor"
-                }
+                Description = "General Intensive Care Unit (I.C.U.)\nCardiology and Coronary Care Unit (C.C.U.)\nCatheterization Center\nDialysis\nDiabetic Food Center\nIncubators\nOne Day Surgery\nEndoscopies Laparoscopic Interdictor"
             }
         },
         CreatedBy = new User()
