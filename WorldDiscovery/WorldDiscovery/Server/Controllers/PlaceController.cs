@@ -16,6 +16,50 @@ namespace WorldDiscovery.Server.Controllers
             _client = client;
         }
 
+        [HttpGet("get-user-places")]
+        public async Task<IActionResult> GetPlacesAddedByUser(string email)
+        {
+            var query = $@" SELECT User 
+            {{
+                uploaded_places: {{
+                    name, 
+                    description,  
+                    place_image: {{
+                        title,
+                        description,
+                        url
+                    }},
+                }},
+            }} 
+            FILTER .email = <str>$email;";
+
+            var user = await _client.QueryAsync<User>(query, new Dictionary<string, object?>
+            {
+                { "email", email},
+            });
+
+            if (user != null)
+            {
+                var places = new List<PlaceModel>();
+
+                foreach(var place in user.FirstOrDefault()?.UploadedPlaces.ToList())
+                {
+                    var newPlace = new PlaceModel
+                    {
+                        Name = place.Name,
+                        Description = place.Description,
+                        PlaceImage = place.PlaceImage
+                    };
+
+                    places.Add(newPlace);
+                }
+
+                return Ok(places);
+            }
+
+            return BadRequest();
+        }
+
         [HttpGet("get-place")]
         public async Task<IActionResult> GetPlaceByName(string name)
         {

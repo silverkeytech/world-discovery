@@ -1,16 +1,31 @@
 ﻿@page "/user-profile"
 @using WorldDiscovery.Shared
 @using WorldDiscovery.Shared.ViewModels;
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
 
 <div class="profile-header">
-
+    <div class="profile-image">
+        <p class="user-name">MS</p>
+    </div>
+    <div class="profile-info">
+        <h1>Millania Sameh</h1>
+        <p>Joined September 2023</p>
+        <img src="images/camera.png" alt="Camera Picture" class="small-camera-pic" @onclick='() => NavigationManager.NavigateTo("/add-place")' />
+    </div>
 </div>
 
 <div class="places-container">
-    @if (Places.Count > 0)
+    @if (_places == null)
     {
         <div class="places-content">
-            @foreach (var item in Places)
+            <h2 class="text-danger">@_errorMessage</h2>
+        </div>
+    }
+    else if (_places.Count > 0)
+    {
+        <div class="places-content">
+            @foreach (var item in _places)
             {
                 <PlaceCard Place=@item />
             }
@@ -19,13 +34,29 @@
     else
     {
         <div class="new-content">
-            <img src="images/camera.png" alt="Camera Picture" class="camera-pic" />
+            <img src="images/camera.png" alt="Camera Picture" class="camera-pic" @onclick='() => NavigationManager.NavigateTo("/add-place")' />
             <h4>You don't have any published places yet. Click on the <span class="blue">camera</span> to share your experiences with others.</h4>
         </div>
     }
 </div>
 
-
 @code {
-    List<PlaceModel> Places = new List<PlaceModel>();
+    List<PlaceModel> _places = new List<PlaceModel>();
+    private string _errorMessage { get; set; } = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await Http.GetAsync($"/place/get-user-places?email=samehmillania@gmail.com");
+
+        if (response.IsSuccessStatusCode)
+        {
+            string json = await response.Content.ReadAsStringAsync();
+            _places = JsonSerializer.Deserialize<List<PlaceModel>>(json);
+
+            return;
+        }
+
+        _places = null;
+        _errorMessage = "Something went wrong. Please try again!";
+    }
 }

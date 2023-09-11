@@ -2,6 +2,39 @@
     background-color: white;
     width: 100vw;
     height: 25vh;
+    display: flex;
+    /*justify-content: center;*/
+    align-items: center;
+    gap: 30px;
+    padding-left: 19.1vw;
+}
+
+.profile-image {
+    background-color: #ed3237;
+    height: 150px;
+    width: 150px;
+    border-radius: 100%;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+.user-name {
+    color: white;
+    font-size: 4.5rem;
+}
+
+.profile-info {
+    font-size: 20px;
+}
+
+p {
+    margin-bottom: 0;
+}
+
+.small-camera-pic {
+    width: 50px;
+    cursor: pointer;
 }
 
 .places-container {
@@ -44,8 +77,9 @@
 @media (max-width: 650px) {
 
     .places-container {
-        height: 58vh;
+        height: 62vh;
         width: 85vw;
+        margin-top: 50px;
     }
 
     .new-content {
@@ -56,5 +90,64 @@
     .camera-pic {
         width: 150px;
         margin-bottom: 20px;
+    }
+
+    .profile-header {
+        gap: 15px;
+        padding-left: 0;
+        justify-content: center;
+    }
+
+    .profile-image {
+        height: 100px;
+        width: 100px;
+    }
+
+    .user-name {
+        font-size: 2.5rem;
+    }
+
+    .profile-info {
+        font-size: 18px;
+    }
+}
+
+@media (width: 280px) {
+
+    .profile-header {
+        gap: 10px;
+    }
+
+    .profile-image {
+        height: 70px;
+        width: 70px;
+    }
+
+    .user-name {
+        font-size: 2rem;
+    }
+
+    .profile-info {
+        font-size: 15px;
+    }
+}
+
+@media (width: 1024px) {
+    .profile-header {
+        height: 30vh;
+    }
+
+    .places-container {
+        margin-top: 50px;
+    }
+
+    .profile-image {
+        height: 140px;
+        width: 140px;
+    }
+
+    .new-content {
+        margin-top: 20px;
+        width: 55vw;
     }
 }
